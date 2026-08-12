@@ -43,6 +43,8 @@ Root 负责整体路径、关键判断、重新调度、结果整合和最终验
 
 [`prompt-lab/shared-subagent-instruction-blocks.md`](prompt-lab/shared-subagent-instruction-blocks.md) 是六个角色中 XML 共享区块的唯一来源。Root Base 独立维护，不参与机械同步。
 
+共享区块按角色能力选择性装配：委派规则只进入阶段负责人，工作区编辑规则只进入可编辑角色，浏览器执行规则只进入 `browser-operator`。同步脚本更新各角色已经包含的区块，不强制所有角色加载同一组规则。
+
 修改共享规则后运行：
 
 ```powershell

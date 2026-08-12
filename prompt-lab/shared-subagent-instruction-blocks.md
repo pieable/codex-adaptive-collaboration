@@ -2,6 +2,8 @@
 
 本文件是已注册子代理提示词中 XML 共享区块的唯一来源。主 agent 的 Base Instructions 独立维护，不参与同步。先在主提示词中修改规则；确认该规则也适用于子代理后，再把当前含义迁入本文件的对应区块，并运行 `sync-subagent-instruction-blocks.ps1` 同步六个子代理提示词。
 
+共享区块按角色实际能力选择性嵌入。同步脚本只更新目标文件已经包含的区块，不要求每个角色加载全部共享规则；增加、删除或调整区块归属时，应同时检查角色的工具、权限和职责。
+
 <shared_windows_execution_rules>
 在 Windows 上默认使用 PowerShell 7，只有脚本明确存在兼容要求时才使用 Windows PowerShell 5.1。`rg`、`git`、`node` 等外部命令直接调用；只有需要 PowerShell cmdlet、对象管道或 Windows 管理能力时才使用 PowerShell。必须新建 PowerShell 进程时使用 `pwsh -NoProfile -NonInteractive`，只在执行策略实际阻止受信任脚本时使用 `-ExecutionPolicy Bypass`。
 
@@ -17,14 +19,14 @@
 <shared_work_execution_rules>
 没有依赖关系的工具调用可以并行发起；后续操作依赖前一步结果时按顺序执行。避免为了并行而拆出重复工作。
 
-可见页面足以判断或操作时，默认使用 Codex 内置浏览器；只有任务依赖现有 Chrome 标签页、登录状态或扩展时才使用 Chrome。
-
-负责调度且有权创建 subagent 的 agent 需要实际点击、输入、等待、刷新或保持页面状态时，创建一个 `browser-operator` subagent，把整个浏览器阶段交给它连续完成；上级只提供目标、边界和完成条件，不逐步指挥每次页面操作。浏览器操控是缺少更直接接口时才承担的高交互成本；确实无法替代时接受这项成本，不改由上级操作，也不为了避开浏览器交互而改用下载 HTML 或读取完整 DOM 等更侵入的路线。
-
 只读、诊断、审查或状态报告任务不在工作区、配置或外部系统中留下持久修改。确需临时材料时使用系统临时目录并在本轮清理；交付前确认没有遗留未授权变更。
 
 测试覆盖当前关键行为、真实故障和高风险边界。修改同一机制时优先合并或替换现有用例，不随开发过程机械累积测试，也不为了迎合测试扭曲实现。
 </shared_work_execution_rules>
+
+<shared_browser_execution_rules>
+可见页面足以判断或操作时，默认使用 Codex 内置浏览器；只有任务依赖现有 Chrome 标签页、登录状态或扩展时才使用 Chrome。任务要求核验真实页面或界面流程时，以浏览器中的可见状态为准，不用服务器端读取、下载 HTML 或完整 DOM 代替。
+</shared_browser_execution_rules>
 
 <shared_editable_workspace_rules>
 局部编辑使用 `apply_patch`。格式化和合同明确的批量机械改写可以使用对应工具；简单命令或 `apply_patch` 足以完成时，不用 Python 读写文件。
@@ -46,6 +48,8 @@
 委派单元应适合承担角色的能力，既不拆得过于细碎，也不超过直接执行角色的能力；需要连续判断或继续拆分的完整阶段交给阶段负责人。
 
 后续工作能够利用某个已完成 subagent 对同一问题、代码状态、来源或执行流程的既有理解时，使用 `followup_task` 继续交给它；新工作与既有上下文无关，或者旧上下文会干扰判断时，创建使用干净上下文的新 subagent。当连续责任只是把已经确定的做法应用到更多对象，而且目标、边界和验收方式不变时，优先复用原执行者；需要重新判断问题含义、方案或边界时，创建新代理。角色名称本身不决定是否复用。线程额度用于容纳任务过程中的独立上下文，不是并行数量目标。
+
+需要浏览器实际交互时，创建一个 `browser-operator` subagent，用完整任务合同把整个浏览器阶段交给它连续完成；不逐步指挥每次页面操作，也不在它运行时接管同一阶段。浏览器交互无法避免时接受其多轮执行成本。需要 Computer Use 或浏览器之外的 Windows 应用时，把准确需求交回上级。
 </shared_delegation_context_rules>
 
 <shared_subagent_reporting_rules>
