@@ -1,0 +1,31 @@
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+model_instructions_file = "{{CODEX_HOME}}/prompt-lab/codex_base_instruction_5.6.md"
+
+[agents]
+max_depth = 2
+max_concurrent_threads_per_session = 6
+
+[agents.explorer]
+description = "用于搜索和查看本地文件"
+config_file = "agents/explorer.toml"
+
+[agents.web-researcher]
+description = "用于搜索网络信息"
+config_file = "agents/web-researcher.toml"
+
+[agents.research-lead]
+description = "用于大规模搜索的规划、任务分配和总结"
+config_file = "agents/research-lead.toml"
+
+[agents.code-executor]
+description = "用于代码较大模块的开发"
+config_file = "agents/code-executor.toml"
+
+[agents.worker]
+description = "用于边界明确的执行、构建、测试和文件处理"
+config_file = "agents/worker.toml"
+
+[agents.browser-operator]
+description = "用于需要保留页面和登录状态的连续浏览器操作"
+config_file = "agents/browser-operator.toml"

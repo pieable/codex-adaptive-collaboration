@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workflow State Distiller"
+  short_description: "从纠偏中恢复任务目标，并决定理解应保存的位置"
+  default_prompt: "使用 $workflow-state-distiller 从当前表达、实际选择、纠偏、实验和失败路线中恢复目标、上下文、输出形态和边界；在歧义会改变重要行动时，只选择一个高决策价值的问题、具体对比或可逆小成果主动澄清，在行动稳定后停止询问，并按适用范围把已确认理解保存到当前状态、项目资料、长期规则或可复用 Skill。"

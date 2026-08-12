@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Research"
+  short_description: "深入搜索多个来源，核实事实并给出引用"
+  default_prompt: "使用 $deep-research 深入调查这个问题，核实重要事实并给出来源。"

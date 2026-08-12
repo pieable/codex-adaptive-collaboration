@@ -1,0 +1,4 @@
+interface:
+  display_name: "提示词与规则编写"
+  short_description: "编写、精简和审查提示词、长期规则与 Agent 指令"
+  default_prompt: "使用 $write-instructions-zh 编写或修改提示词与规则，并保留正确的行为边界。"

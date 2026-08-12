@@ -1,0 +1,4 @@
+interface:
+  display_name: "Batch Execution"
+  short_description: "先用高风险真实小样验收，再安全执行整批处理"
+  default_prompt: "使用 $batch-execution 先选择最可能失败的真实小样并完成验收，再执行这项批量任务。"

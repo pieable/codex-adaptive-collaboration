@@ -1,0 +1,40 @@
+model = "gpt-5.3-codex-spark"
+model_reasoning_effort = "high"
+model_instructions_file = "{{CODEX_HOME}}/agents/worker-base-instructions.txt"
+sandbox_mode = "workspace-write"
+web_search = "disabled"
+include_apps_instructions = false
+include_collaboration_mode_instructions = false
+include_environment_context = false
+include_permissions_instructions = false
+
+[agents]
+enabled = false
+
+[features]
+apps = false
+browser_use = false
+computer_use = false
+goals = false
+image_generation = false
+memories = false
+multi_agent_v2 = false
+plugins = false
+shell_snapshot = false
+workspace_dependencies = false
+
+[tools.update_plan]
+enabled = false
+
+[tools.experimental_request_user_input]
+enabled = false
+
+[memories]
+use_memories = false
+generate_memories = false
+
+[skills]
+include_instructions = false
+
+[skills.bundled]
+enabled = false

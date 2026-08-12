@@ -1,0 +1,42 @@
+name = "web-researcher"
+description = "Luna 联网搜索工人，负责一个明确问题或候选集合的来源取证。"
+model = "gpt-5.6-luna"
+model_reasoning_effort = "low"
+model_instructions_file = "{{CODEX_HOME}}/agents/web-researcher-base-instructions.txt"
+sandbox_mode = "read-only"
+project_doc_max_bytes = 0
+include_apps_instructions = false
+include_collaboration_mode_instructions = false
+include_environment_context = false
+include_permissions_instructions = false
+
+[agents]
+enabled = false
+
+[features]
+apps = false
+browser_use = false
+computer_use = false
+goals = false
+image_generation = false
+memories = false
+multi_agent_v2 = false
+plugins = false
+shell_tool = true
+workspace_dependencies = false
+
+[tools.update_plan]
+enabled = false
+
+[tools.experimental_request_user_input]
+enabled = false
+
+[memories]
+use_memories = false
+generate_memories = false
+
+[skills]
+include_instructions = false
+
+[skills.bundled]
+enabled = false
