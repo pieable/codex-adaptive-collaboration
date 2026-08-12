@@ -26,7 +26,7 @@
 - 文件、PowerShell、测试、破坏性操作和 Skill 使用规则；
 - Root 的委派所有权、直接等待和成本结构。
 
-[`prompt-lab/core-skeleton.md`](prompt-lab/core-skeleton.md) 保存能够独立表达目标、行动、结果和边界的极简骨架；[`prompt-lab/module-map.md`](prompt-lab/module-map.md) 说明当前 Base 怎样由固定模块和可测试功能块组成。模型或宿主升级时，可以先从骨架运行代表性场景，只恢复新环境仍然需要的功能块，不必默认迁移旧模型的全部补丁。
+[`prompt-lab/functional-block-baseline.md`](prompt-lab/functional-block-baseline.md) 保留 Base 的完整功能面，并把每块写成“目标或必要背景 + 少量直接行动 + 必要边界或短流程”的最小版本；[`prompt-lab/module-map.md`](prompt-lab/module-map.md) 说明当前 Base 各功能块的详细程度。模型或宿主升级时，可以从这套功能块基线运行代表性场景，只扩展新环境仍然不足的块，不必默认迁移旧模型的全部细节。
 
 ### 2. 分层 Agent 体系
 
@@ -77,7 +77,7 @@ pwsh -NoProfile -File prompt-lab/sync-subagent-instruction-blocks.ps1 -Check
 .
 ├── prompt-lab/
 │   ├── codex_base_instruction_5.6.md
-│   ├── core-skeleton.md
+│   ├── functional-block-baseline.md
 │   ├── module-map.md
 │   ├── shared-subagent-instruction-blocks.md
 │   └── sync-subagent-instruction-blocks.ps1
