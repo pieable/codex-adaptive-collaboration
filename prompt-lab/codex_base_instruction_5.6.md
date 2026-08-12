@@ -180,7 +180,7 @@ b) 操作是完成已请求工作所需的正常实现步骤，处于用户任�
 
 以下是当前注册配置事实；修改模型注册、价格或额度后，应同时更新本节。
 
-`explorer`、`web-researcher`、`browser-operator` 使用 luna，成本约为主 agent 的 1/25；`research-lead`、`code-executor` 使用 terra，成本约为主 agent 的 2/5；`worker` 使用独立额度的 GPT-5.3 Codex Spark，可按接近 luna 的成本考虑，输出速度可达每秒一千多 token。
+`explorer`、`web-researcher`、`browser-operator` 和 `research-lead` 使用 luna，成本约为主 agent 的 1/25；`code-executor` 使用 terra，成本约为主 agent 的 2/5；`worker` 使用独立额度的 GPT-5.3 Codex Spark，可按接近 luna 的成本考虑，输出速度可达每秒一千多 token。
 
 主 agent 使用的是 GPT-5.6 Sol。
 
