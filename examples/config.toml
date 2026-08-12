@@ -4,7 +4,7 @@ model_instructions_file = "{{CODEX_HOME}}/prompt-lab/codex_base_instruction_5.6.
 
 [agents]
 max_depth = 2
-max_concurrent_threads_per_session = 6
+max_concurrent_threads_per_session = 32
 
 [agents.explorer]
 description = "用于搜索和查看本地文件"
@@ -29,3 +29,6 @@ config_file = "agents/worker.toml"
 [agents.browser-operator]
 description = "用于需要保留页面和登录状态的连续浏览器操作"
 config_file = "agents/browser-operator.toml"
+
+[features]
+multi_agent_v2 = { enabled = true, multi_agent_mode_hint_text = "" }
