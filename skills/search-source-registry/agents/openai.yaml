@@ -1,4 +1,0 @@
-interface:
-  display_name: "搜索来源注册表"
-  short_description: "按主张判断信源等级，选择搜索入口并报告覆盖缺口"
-  default_prompt: "先把问题拆成可核验主张，按主张判断信源等级，选择最接近原始记录的入口，再报告证据和覆盖缺口。"

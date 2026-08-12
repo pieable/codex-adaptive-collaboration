@@ -52,15 +52,13 @@ pwsh -NoProfile -File prompt-lab/sync-subagent-instruction-blocks.ps1 -Check
 
 ### 4. 理解、研究与执行 Skills
 
-仓库附带八个通用 Skill：
+仓库附带六个通用 Skill：
 
 - `workflow-state-distiller`：从纠正、选择和试用中提炼正在形成的真实要求；
-- `xy-axis-thinking`：同时追溯形成原因并比较当前参照，避免只看眼前现象；
 - `workflow-route-mapper`：保存任务分叉、失败路线、当前位置和下一步；
 - `write-instructions-zh`：创建和维护 Base、Agent、Skill 与长期规则；
 - `code-development`：跨文件代码调查、实现和验证；
 - `deep-research`：多来源系统研究；
-- `search-source-registry`：制定搜索路线并管理信源层级；
 - `batch-execution`：控制批量处理的扩散风险和验收。
 
 ## 安装

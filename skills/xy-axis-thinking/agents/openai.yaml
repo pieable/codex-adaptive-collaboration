@@ -1,4 +1,0 @@
-interface:
-  display_name: "xOy 坐标轴思考"
-  short_description: "从当前原点出发，沿形成原因、目标方向和关系参照思考下一步"
-  default_prompt: "使用 $xy-axis-thinking 深入分析当前问题，并根据原因、目标和关系参照判断下一步。"

@@ -1,6 +1,6 @@
 # 给安装 AI 的任务合同
 
-把本仓库安装到当前用户的 Codex 配置目录，使 Root Base、六个 Agent、共享规则同步机制和八个通用 Skill 在新任务中生效。
+把本仓库安装到当前用户的 Codex 配置目录，使 Root Base、六个 Agent、共享规则同步机制和六个通用 Skill 在新任务中生效。
 
 ## 目标与边界
 
@@ -20,7 +20,7 @@
    - `prompt-lab/shared-subagent-instruction-blocks.md`；
    - `prompt-lab/sync-subagent-instruction-blocks.ps1`；
    - `agents/` 下六个角色的指令文件和 TOML；
-   - `skills/` 下八个 Skill 的完整目录。
+   - `skills/` 下六个 Skill 的完整目录。
 4. 把六个 Agent TOML 中的 `{{CODEX_HOME}}` 替换为真实绝对路径。只替换这个占位符，不改写其他指令内容。
 5. 合并 `config.toml`：
    - 保留无关顶层配置；
