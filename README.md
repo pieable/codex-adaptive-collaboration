@@ -24,7 +24,9 @@
 - 从当前状态到完成条件的持续推进；
 - 授权、自主性、最小方案和受阻换路；
 - 文件、PowerShell、测试、破坏性操作和 Skill 使用规则；
-- Root 的调度循环、委派所有权和成本结构。
+- Root 的委派所有权、直接等待和成本结构。
+
+[`prompt-lab/core-skeleton.md`](prompt-lab/core-skeleton.md) 保存能够独立表达目标、行动、结果和边界的极简骨架；[`prompt-lab/module-map.md`](prompt-lab/module-map.md) 说明当前 Base 怎样由固定模块和可测试功能块组成。模型或宿主升级时，可以先从骨架运行代表性场景，只恢复新环境仍然需要的功能块，不必默认迁移旧模型的全部补丁。
 
 ### 2. 分层 Agent 体系
 
@@ -75,6 +77,8 @@ pwsh -NoProfile -File prompt-lab/sync-subagent-instruction-blocks.ps1 -Check
 .
 ├── prompt-lab/
 │   ├── codex_base_instruction_5.6.md
+│   ├── core-skeleton.md
+│   ├── module-map.md
 │   ├── shared-subagent-instruction-blocks.md
 │   └── sync-subagent-instruction-blocks.ps1
 ├── agents/

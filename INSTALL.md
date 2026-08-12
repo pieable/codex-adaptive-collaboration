@@ -17,6 +17,7 @@
 2. 在 `CODEX_HOME` 下创建 `prompt-lab`、`agents`、`skills` 和独立备份目录。
 3. 复制以下文件：
    - `prompt-lab/codex_base_instruction_5.6.md`；
+   - `prompt-lab/core-skeleton.md` 和 `prompt-lab/module-map.md`；
    - `prompt-lab/shared-subagent-instruction-blocks.md`；
    - `prompt-lab/sync-subagent-instruction-blocks.ps1`；
    - `agents/` 下六个角色的指令文件和 TOML；
