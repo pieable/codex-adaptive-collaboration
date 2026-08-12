@@ -26,7 +26,9 @@
 - 文件、PowerShell、测试、破坏性操作和 Skill 使用规则；
 - Root 的委派所有权、直接等待和成本结构。
 
-[`prompt-lab/functional-block-baseline.md`](prompt-lab/functional-block-baseline.md) 保留 Base 的完整功能面，并把每块写成“目标或必要背景 + 少量直接行动 + 必要边界或短流程”的最小版本；[`prompt-lab/module-map.md`](prompt-lab/module-map.md) 说明当前 Base 各功能块的详细程度。模型或宿主升级时，可以从这套功能块基线运行代表性场景，只扩展新环境仍然不足的块，不必默认迁移旧模型的全部细节。
+[`prompt-lab/functional-block-baseline.md`](prompt-lab/functional-block-baseline.md) 保留 Base 的完整功能面，并把每块写成“目标或必要背景 + 少量直接行动 + 必要边界或短流程”的最小实验版本；[`prompt-lab/module-map.md`](prompt-lab/module-map.md) 说明不同功能块应使用的修改方法。模型或宿主升级时，可以从对应的操作功能块运行代表性场景，只扩展新环境仍然不足的部分；交互区块先保留成熟版本，再根据真实对话表现调整。
+
+Base 中有两类不同的规则。工具、委派、安全等操作规则可以按培训手册组织，通过行为测试逐块精简；人格、语气和用户协作属于交互校准，依赖长期反馈与主观体验，现有成熟写法默认保留，只在真实对话证据足够时用样例和成对场景调整。形成原因与测试记录留在 Prompt Lab 和版本历史中，不与当前规则混在同一层。
 
 ### 2. 分层 Agent 体系
 
