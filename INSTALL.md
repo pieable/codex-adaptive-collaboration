@@ -59,3 +59,7 @@
 - 最终模型映射；
 - 共享规则检查、TOML 解析和真实加载各验证到哪一层；
 - 仍未验证或需要用户处理的事项。
+
+## DeepSeek Harness
+
+DeepSeek Harness 的安装不修改本节的 Codex 配置。请使用独立 bundle 的 [`deepseek-harness/INSTALL.md`](deepseek-harness/INSTALL.md)；其安装脚本默认备份 DSH 的 AGENTS 与同名 preset，不读取或写入凭据、sessions、profiles 或 node_modules。
