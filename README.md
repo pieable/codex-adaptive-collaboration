@@ -73,6 +73,10 @@ pwsh -NoProfile -File prompt-lab/sync-subagent-instruction-blocks.ps1 -Check
 
 模型名称来自原作者的注册配置。如果你的环境没有这些模型，让安装 AI 先请你确认能力层级映射，不要静默替换。
 
+### DeepSeek Harness
+
+[`deepseek-harness/`](deepseek-harness/) 提供独立的 DSH agent preset bundle：复用本仓库六个 Skills，安装时备份用户的 AGENTS 与同名 preset，并生成本机路径后的配置；它不复制会话、凭据、npm 安装或评测输出。详见 [`deepseek-harness/INSTALL.md`](deepseek-harness/INSTALL.md)。
+
 ## 仓库结构
 
 ```text

@@ -1,0 +1,29 @@
+import { BasicCompactionEngine } from '__DSH_COMPACTION_BASIC_FILE_URL__';
+import { BlockAssembler, contentHasImage, createUserMessage } from '__DSH_LLM_FILE_URL__';
+const SUMMARY_OPEN_TAG = '<compacted-summary>';
+const COMPACTION_INSTRUCTION = [
+  '你正在执行上下文检查点压缩。为将继续当前任务的模型创建一份简洁、高密度的交接摘要，只输出摘要。', '',
+  '严格输出以下 Markdown 标题，按顺序保留每个标题；每节使用简短条目，没有内容写“（无）”。', '',
+  '## 当前目标与验收', '## 进度、已完成结果与准确下一步', '## 有效决定、约束、偏好、权限与取舍理由', '## 文件、路径、命令、测试、来源与运行状态', '## 错误、未决问题与避免重试的经验', '## 关键上下文', '',
+  '保留：', '- 当前目标、进度、已完成结果、准确的下一步和验收方式；', '- 仍然有效的决定、约束、用户偏好、权限边界和关键取舍理由；', '- 继续工作必需的文件、路径、命令、错误、测试、来源、运行状态和未决问题；', '- 会排除一条合理路线、解释当前决定、避免昂贵重试或仍未解决的失败经验。', '',
+  '用户较新的明确决定和实际选择优先。被替代的旧要求不要继续列为有效要求；未解决的矛盾要明确标出。删除已经修好的临时错误、重复过程、失效假设、被替代草案、无结论的尝试和不再影响下一步的历史。任何明确标为 `STALE_NOISE_*`、过时噪音、或“不要保留”的内容都必须完全省略：不要复述、引用、解释或写出其标识符。', '',
+  `如果已有更早的 ${SUMMARY_OPEN_TAG} 块，只继承其中仍会改变当前行动的内容；不要原样复制。摘要应让下一个模型直接继续，不要保存完整时间线，也不要重新生成已经完成的待办。`,
+  '只输出检查点文本；不要调用工具，不要提及本次压缩。'
+].join('\n');
+function targetFor(agent) { const routed = agent.session.requestHeader()?.config; if (routed?.provider && routed?.model) return { provider: routed.provider, model: routed.model }; if (agent.options.provider && agent.options.model) return { provider: agent.options.provider, model: agent.options.model }; throw new Error('no provider/model available for compaction summarization'); }
+function policyFor(config, target) { const override = config.modelPolicies.find((policy) => policy.provider === target.provider && policy.model === target.model); return override === undefined ? config : { ...config, ...override }; }
+export default class CustomPromptCompactionEngine extends BasicCompactionEngine {
+  async summarize(input, agent, signal) {
+    const target = targetFor(agent); const policy = policyFor(this.config, target);
+    const configured = policy.summarizationProvider && policy.summarizationModel ? { provider: policy.summarizationProvider, model: policy.summarizationModel } : target;
+    const assembler = new BlockAssembler();
+    const options = { provider: configured.provider, model: configured.model, messages: [...input.messages, createUserMessage({ content: [{ type: 'text', text: COMPACTION_INSTRUCTION }], source: { kind: 'plugin', plugin: 'dsh-compaction-custom-prompt' } })], ...(input.system === undefined ? {} : { system: input.system }), ...(input.tools === undefined ? {} : { tools: [...input.tools] }), maxTokens: policy.maxTokens, sessionId: agent.session.id, purpose: 'compaction', ...(signal === undefined ? {} : { signal }) };
+    for await (const chunk of this.ctx.llm.stream(options)) assembler.push(chunk);
+    const finish = assembler.finish;
+    if (finish.kind === 'error' || finish.kind === 'aborted') { const error = new Error(finish.failure.message); error.code = finish.failure.code; throw error; }
+    if (finish.kind === 'max-tokens') throw new Error('summarization truncated at the token cap (incomplete checkpoint)');
+    const rawOutput = assembler.blocks(); if (contentHasImage(rawOutput)) throw new Error('compaction summary cannot contain image output');
+    const summary = rawOutput.filter((block) => block.type === 'text'); if (!summary.some((block) => block.text.trim().length > 0)) throw new Error('summarization produced no text summary content');
+    return { summary, rawOutput, llmStreamCall: true, provider: options.provider, model: options.model, maxTokens: policy.maxTokens, ...(assembler.usage === undefined ? {} : { usage: assembler.usage }) };
+  }
+}
