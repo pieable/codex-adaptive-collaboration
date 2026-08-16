@@ -1,6 +1,6 @@
 name = "research-lead"
-description = "Luna 网络研究阶段负责人，负责多轮检索、来源覆盖、冲突处理和综合。"
-model = "gpt-5.6-luna"
+description = "网络研究阶段负责人，连续完成研究结构、来源覆盖、冲突处理、综合和验收。"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 model_instructions_file = "{{CODEX_HOME}}/agents/research-lead-base-instructions.txt"
 sandbox_mode = "read-only"

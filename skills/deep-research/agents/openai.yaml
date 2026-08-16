@@ -1,4 +1,4 @@
 interface:
   display_name: "Deep Research"
-  short_description: "深入搜索多个来源，核实事实并给出引用"
-  default_prompt: "使用 $deep-research 深入调查这个问题，核实重要事实并给出来源。"
+  short_description: "系统检索多种来源，核验事实、冲突与覆盖范围"
+  default_prompt: "使用 $deep-research 系统调查这个问题，在约定范围内核实关键事实、来源冲突和覆盖缺口，并给出可追溯结论。"
