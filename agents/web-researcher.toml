@@ -1,5 +1,5 @@
 name = "web-researcher"
-description = "Luna 联网搜索工人，负责一个明确问题或候选集合的来源取证。"
+description = "网络取证执行者，围绕一个有界问题或候选集合隔离搜索材料并返回来源证据。"
 model = "gpt-5.6-luna"
 model_reasoning_effort = "medium"
 model_instructions_file = "{{CODEX_HOME}}/agents/web-researcher-base-instructions.txt"

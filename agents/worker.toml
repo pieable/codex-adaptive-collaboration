@@ -1,3 +1,5 @@
+name = "worker"
+description = "执行者，完成结果含义、做法边界和验收方式已经确定的一项责任。"
 model = "gpt-5.3-codex-spark"
 model_reasoning_effort = "high"
 model_instructions_file = "{{CODEX_HOME}}/agents/worker-base-instructions.txt"
@@ -5,8 +7,8 @@ sandbox_mode = "workspace-write"
 web_search = "disabled"
 include_apps_instructions = false
 include_collaboration_mode_instructions = false
-include_environment_context = false
-include_permissions_instructions = false
+include_environment_context = true
+include_permissions_instructions = true
 
 [agents]
 enabled = false

@@ -4,30 +4,34 @@ model_instructions_file = "{{CODEX_HOME}}/prompt-lab/codex_base_instruction_5.6.
 
 [agents]
 max_depth = 2
-max_concurrent_threads_per_session = 32
+max_concurrent_threads_per_session = 64
 
 [agents.explorer]
-description = "用于搜索和查看本地文件"
+description = "本地取证执行者，围绕一个有界问题隔离读取材料并返回可核验证据。"
 config_file = "agents/explorer.toml"
 
 [agents.web-researcher]
-description = "用于搜索网络信息"
+description = "网络取证执行者，围绕一个有界问题或候选集合隔离搜索材料并返回来源证据。"
 config_file = "agents/web-researcher.toml"
 
 [agents.research-lead]
-description = "用于大规模搜索的规划、任务分配和总结"
+description = "网络研究阶段负责人，连续完成研究结构、来源覆盖、冲突处理、综合和验收。"
 config_file = "agents/research-lead.toml"
 
 [agents.code-executor]
-description = "用于代码较大模块的开发"
+description = "完整代码阶段负责人，连续完成调查、实现、整合、验证和收尾。"
 config_file = "agents/code-executor.toml"
 
+[agents.code-reviewer]
+description = "独立代码评审者，只读判断一次变更是否适合合入或交付并报告可操作问题。"
+config_file = "agents/code-reviewer.toml"
+
 [agents.worker]
-description = "用于边界明确的执行、构建、测试和文件处理"
+description = "执行者，完成结果含义、做法边界和验收方式已经确定的一项责任。"
 config_file = "agents/worker.toml"
 
 [agents.browser-operator]
-description = "用于需要保留页面和登录状态的连续浏览器操作"
+description = "浏览器阶段执行者，连续完成一个有界网页操作阶段并保留页面状态。"
 config_file = "agents/browser-operator.toml"
 
 [features]

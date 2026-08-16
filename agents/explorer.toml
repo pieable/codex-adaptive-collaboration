@@ -1,3 +1,5 @@
+name = "explorer"
+description = "本地取证执行者，围绕一个有界问题隔离读取材料并返回可核验证据。"
 model = "gpt-5.6-luna"
 model_reasoning_effort = "medium"
 model_instructions_file = "{{CODEX_HOME}}/agents/explorer-base-instructions.txt"

@@ -1,17 +1,17 @@
-name = "code-executor"
-description = "完整代码阶段负责人，连续完成调查、实现、整合、验证和收尾。"
+name = "code-reviewer"
+description = "独立代码评审者，只读判断一次变更是否适合合入或交付并报告可操作问题。"
 model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
-model_instructions_file = "{{CODEX_HOME}}/agents/code-executor-base-instructions.txt"
-sandbox_mode = "workspace-write"
+model_instructions_file = "{{CODEX_HOME}}/agents/code-reviewer-base-instructions.txt"
+sandbox_mode = "read-only"
 web_search = "disabled"
 include_apps_instructions = false
 include_collaboration_mode_instructions = false
-include_environment_context = true
-include_permissions_instructions = true
+include_environment_context = false
+include_permissions_instructions = false
 
 [agents]
-enabled = true
+enabled = false
 
 [features]
 apps = false
@@ -20,6 +20,7 @@ computer_use = false
 goals = false
 image_generation = false
 memories = false
+multi_agent_v2 = false
 plugins = false
 shell_snapshot = false
 workspace_dependencies = false

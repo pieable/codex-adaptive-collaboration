@@ -14,7 +14,7 @@
 - 自主推进不能变成越权或小题大做，替代路线需要和原任务规模相称；
 - 提示词经过多轮校准后，要保留当前规则、形成原因和可复用方法，不能不断堆叠局部补丁。
 
-## 四个组成部分
+## 三个组成部分
 
 ### 1. 自适应协作 Base
 
@@ -24,7 +24,7 @@
 - 从当前状态到完成条件的持续推进；
 - 授权、自主性、最小方案和受阻换路；
 - 文件、PowerShell、测试、破坏性操作和 Skill 使用规则；
-- Root 的委派所有权、直接等待和成本结构。
+- Root 的委派分工、等待机制和模型价格结构。
 
 [`prompt-lab/functional-block-baseline.md`](prompt-lab/functional-block-baseline.md) 保留 Base 的完整功能面，并把每块写成“目标或必要背景 + 少量直接行动 + 必要边界或短流程”的最小实验版本；[`prompt-lab/module-map.md`](prompt-lab/module-map.md) 说明不同功能块应使用的修改方法。模型或宿主升级时，可以从对应的操作功能块运行代表性场景，只扩展新环境仍然不足的部分；交互区块先保留成熟版本，再根据真实对话表现调整。
 
@@ -38,25 +38,15 @@ Base 中有两类不同的规则。工具、委派、安全等操作规则可以
 | `web-researcher` | 边界明确的联网取证 |
 | `research-lead` | 多轮研究、来源覆盖、冲突处理和综合 |
 | `code-executor` | 完整代码阶段的调查、实现、验证和收尾 |
+| `code-reviewer` | 独立、只读地评审代码变更并报告可操作问题 |
 | `worker` | 合同明确的高速执行、批处理、构建和测试 |
 | `browser-operator` | 需要连续页面状态的浏览器操作 |
 
-Root 负责整体路径、关键判断、重新调度、结果整合和最终验收。每项责任只有一个所有者；已经交给 subagent 的工作，Root 不会为了保持忙碌而重复执行。
+Root 负责整体路径、关键判断、重新调度、结果整合和最终验收。每项责任只由一个 Agent 负责；已经交给 subagent 的工作，Root 不会为了保持忙碌而重复执行。
 
-### 3. 可同步的共享规则
+每个角色使用一份完整、自包含的提示词。角色之间不再机械同步共享区块；共同原则按各自真实职责写入对应角色，避免共享文本长期混入无关能力或与实际文件漂移。形成原因和当前角色关系保存在 [`agents/PROMPT_HISTORY.md`](agents/PROMPT_HISTORY.md)。
 
-[`prompt-lab/shared-subagent-instruction-blocks.md`](prompt-lab/shared-subagent-instruction-blocks.md) 是六个角色中 XML 共享区块的唯一来源。Root Base 独立维护，不参与机械同步。
-
-共享区块按角色能力选择性装配：委派规则只进入阶段负责人，工作区编辑规则只进入可编辑角色，浏览器执行规则只进入 `browser-operator`。同步脚本更新各角色已经包含的区块，不强制所有角色加载同一组规则。
-
-修改共享规则后运行：
-
-```powershell
-pwsh -NoProfile -File prompt-lab/sync-subagent-instruction-blocks.ps1
-pwsh -NoProfile -File prompt-lab/sync-subagent-instruction-blocks.ps1 -Check
-```
-
-### 4. 理解、研究与执行 Skills
+### 3. 理解、研究与执行 Skills
 
 仓库附带六个通用 Skill：
 
@@ -80,10 +70,9 @@ pwsh -NoProfile -File prompt-lab/sync-subagent-instruction-blocks.ps1 -Check
 ├── prompt-lab/
 │   ├── codex_base_instruction_5.6.md
 │   ├── functional-block-baseline.md
-│   ├── module-map.md
-│   ├── shared-subagent-instruction-blocks.md
-│   └── sync-subagent-instruction-blocks.ps1
+│   └── module-map.md
 ├── agents/
+│   ├── PROMPT_HISTORY.md
 │   ├── *-base-instructions.txt
 │   └── *.toml
 ├── skills/
