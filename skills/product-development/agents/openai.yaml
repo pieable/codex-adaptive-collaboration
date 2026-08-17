@@ -1,0 +1,4 @@
+interface:
+  display_name: "产品开发"
+  short_description: "以客户现实为起点，定义、发明、完善并验证可交付的产品体验"
+  default_prompt: "Use $product-development to turn this product idea into a coherent customer-centered product definition and validation path."
