@@ -48,7 +48,7 @@ Root 负责整体路径、关键判断、重新调度、结果整合和最终验
 
 ### 3. 理解、研究与执行 Skills
 
-仓库附带六个通用 Skill：
+仓库附带七个通用 Skill：
 
 - `workflow-state-distiller`：从纠正、选择和试用中提炼正在形成的真实要求；
 - `workflow-route-mapper`：保存任务分叉、失败路线、当前位置和下一步；
@@ -56,6 +56,7 @@ Root 负责整体路径、关键判断、重新调度、结果整合和最终验
 - `code-development`：跨文件代码调查、实现和验证；
 - `deep-research`：多来源系统研究；
 - `batch-execution`：控制批量处理的扩散风险和验收。
+- `product-development`：从客户现实出发形成产品定义，在关键取舍处共同决策并把稳定方向交给实现。
 
 ## 安装
 
