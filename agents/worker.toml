@@ -1,5 +1,5 @@
 name = "worker"
-description = "使用独立 Spark 额度的高速执行者，在额度可用而且速度收益明显时完成做法和验收已经确定的责任。"
+description = "使用独立且有限 Spark 额度的高速执行者，输出速度可达每秒一千多个 Token。在额度可用而且速度收益明显时，完成做法和验收已经确定的责任。"
 model = "gpt-5.3-codex-spark"
 model_reasoning_effort = "high"
 developer_instructions = '''

@@ -7,39 +7,30 @@ max_depth = 2
 max_concurrent_threads_per_session = 10
 
 [agents.explorer]
-description = "本地取证执行者，围绕一个有界问题隔离读取材料并返回可核验证据。"
 config_file = "agents/explorer.toml"
 
 [agents.web-researcher]
-description = "网络取证执行者，围绕一个有界问题或候选集合隔离搜索材料并返回来源证据。"
 config_file = "agents/web-researcher.toml"
 
 [agents.research-lead]
-description = "大规模网络研究阶段负责人，连续组织取证并完成综合和验收。"
 config_file = "agents/research-lead.toml"
 
 [agents.code-executor]
-description = "一个已划定的代码模块或功能阶段负责人，完成核心工作并组织外围执行与验收。"
 config_file = "agents/code-executor.toml"
 
 [agents.code-reviewer]
-description = "独立代码评审者，只读判断一次变更是否适合合入或交付并报告可操作问题。"
 config_file = "agents/code-reviewer.toml"
 
 [agents.worker]
-description = "使用独立 Spark 额度的高速执行者，在额度可用而且速度收益明显时完成做法和验收已经确定的责任。"
 config_file = "agents/worker.toml"
 
 [agents.worker-luna]
-description = "主要执行者，完成结果含义、做法边界和验收方式已经确定的一项责任。"
 config_file = "agents/worker-luna.toml"
 
 [agents.browser-operator]
-description = "浏览器阶段执行者，连续完成一个有界网页操作阶段并保留页面状态。"
 config_file = "agents/browser-operator.toml"
 
 [agents.visual-usability-tester]
-description = "视觉黑盒可用性测试者，只用截图和坐标自主完成用户任务，报告可见缺陷、误解和阻塞。"
 config_file = "agents/visual-usability-tester.toml"
 
 [features]

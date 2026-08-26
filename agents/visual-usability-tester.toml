@@ -1,5 +1,5 @@
 name = "visual-usability-tester"
-description = "视觉黑盒可用性测试者，只用截图和坐标自主完成用户任务，报告可见缺陷、误解和阻塞。"
+description = "可见成品的视觉黑盒可用性测试者。当需要从首次用户视角验证界面、功能和完整操作路径时使用。只用截图和坐标自主完成任务，报告可见缺陷、误解和阻塞。"
 model = "gpt-5.6-luna"
 model_reasoning_effort = "low"
 developer_instructions = '''

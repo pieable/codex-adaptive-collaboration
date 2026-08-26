@@ -20,6 +20,10 @@
 
 [`functional-block-baseline.md`](prompt-lab/functional-block-baseline.md) 保留 Base 的功能块测试基线；[`module-map.md`](prompt-lab/module-map.md) 说明各功能块的性质和修改方式。它们用于校准和维护，不替代运行时 Base。
 
+### 共同执行层
+
+[`global/AGENTS.md`](global/AGENTS.md) 是所有角色共同读取的执行规则，承载内部通信、工具协作、成品、验证和 Windows 工作方式。Base 和各角色可以直接依赖这一层，不再各自复制相同规则。安装时把它合并到 `CODEX_HOME/AGENTS.md`，保留接收环境已有的无关内容。
+
 ### 九个按职责选择的角色
 
 | 角色 | 责任 |
@@ -65,6 +69,7 @@
 ```text
 .
 ├── prompt-lab/                 # Root Base 与公开维护材料
+├── global/AGENTS.md            # 所有角色共同读取的执行规则
 ├── agents/                     # 9 个自包含角色 TOML
 ├── skills/                     # 9 个体系 Skill 的完整目录
 ├── examples/config.toml        # 可移植的注册示例
