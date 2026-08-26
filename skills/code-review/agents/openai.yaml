@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review"
+  short_description: "Independent evidence-based review for code changes"
+  default_prompt: "Use $code-review to review this code change with evidence."

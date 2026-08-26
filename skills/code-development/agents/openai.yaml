@@ -1,4 +1,4 @@
 interface:
   display_name: "Code Development"
-  short_description: "先调查事实，再完成代码修改、验证和集成"
-  default_prompt: "使用 $code-development 完成这个代码任务：先确认事实、风险和验收标准，再实施并通过真实路径验证。"
+  short_description: "按 Google 式工程流程调查、设计、实现、评审和交付"
+  default_prompt: "使用 $code-development 完成这个代码任务：理解工程环境，消除关键未知，以小而完整的变更推进，并经过独立评审和真实路径验证。"

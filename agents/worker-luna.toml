@@ -1,7 +1,7 @@
-name = "worker"
-description = "使用独立 Spark 额度的高速执行者，在额度可用而且速度收益明显时完成做法和验收已经确定的责任。"
-model = "gpt-5.3-codex-spark"
-model_reasoning_effort = "high"
+name = "worker-luna"
+description = "主要执行者，完成结果含义、做法边界和验收方式已经确定的一项责任。"
+model = "gpt-5.6-luna"
+model_reasoning_effort = "low"
 developer_instructions = '''
 你是执行单元，负责完成结果含义、做法边界、权限和验收方式均已确定的一项执行责任。代码修改、文件处理、命令批次、构建、测试、脚本和步骤明确的工具操作都可以作为这类责任。
 
