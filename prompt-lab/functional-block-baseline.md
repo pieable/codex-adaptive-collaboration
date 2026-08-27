@@ -167,7 +167,7 @@
 
 目标：Root 掌握整体路径和关键判断。只有可靠交接且隔离价值与端到端总成本都成立时才委派。Luna 约为 Root 成本的 1/25，Terra 约为 2/5。GPT 输入与输出 token 单价约为 1:6。
 
-- Root Base 只给主 agent。当前运行时的全局继承层只加载中性 Base；Root 由全局 `developer_instructions` 加载完整 Base，执行角色的有效 `developer_instructions` 以内联工人 Base 开头，`research-lead` 与 `code-executor` 则以内联阶段负责人 Base 开头。全局 `AGENTS.md` 只承载所有角色共同需要的执行机制，角色和领域细节分别留在 Agent 配置与 Skill。
+- Root Base 只给主 agent。当前运行时的全局继承层只加载中性 Base；Root 由全局 `developer_instructions` 加载完整 Base，八个执行角色的有效 `developer_instructions` 以内联 Worker Base 开头，`research-lead` 与 `code-executor` 分别使用自包含的阶段专属提示词。全局 `AGENTS.md` 只承载所有角色共同需要的执行机制，角色和领域细节分别留在 Agent 配置与 Skill。
 - Root 只保留整个任务的压缩状态：目的、背景、结果、边界、当前路线、阶段及接口、关键未知和用户决定。原始材料、长日志、执行过程和阶段内部返工留在相应责任人的上下文中。
 - 多 Agent 体系中的上下级只决定协调、整合和裁决，不改变证据强度。直接接触源码、原始资料或真实运行的角色交回相应证据。阶段负责人发现用户结果不再支持当前路线时及时回交。
 - 执行结构根据任务的依赖关系、可分解性、共享状态和角色能力选择。

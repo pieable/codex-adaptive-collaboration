@@ -39,13 +39,13 @@
 4. 令 `model_instructions_file` 指向共享中性 Base，而不是 Root Base。
 5. 解析最终 TOML。
 6. 比较解析后的 `developer_instructions` 与权威源，要求字符长度和 SHA-256 一致。
-7. 逐字符核对角色 TOML 的 Stage/Worker Base 前缀。
+7. 逐字符核对八个执行角色的 Worker Base 前缀，并分别检查两个阶段角色的自包含专属提示词。
 8. 需要证明宿主或模型实际加载时，使用全新 Root 和命名 subagent 任务验证；当前任务不会热替换已经加载的指令。
 
 这套发布方式故意不增加 Python 同步文件、常驻进程或 Hook。复制是明确的部署动作，Git 只记录仓库中的权威源和可移植材料，避免接收者 `config.toml` 的日常变化污染提示词版本。
 
 ## 其他提示词的版本边界
 
-共享中性 Base、Stage Base、Worker Base 和命名角色 TOML 位于 `agents/`。全局共同规则位于 `global/AGENTS.md`，按任务加载的方法位于 `skills/`。修改任何一层时先改该层自己的权威文件，再更新它实际需要的运行镜像。
+共享中性 Base、Worker Base 和命名角色 TOML 位于 `agents/`。`code-executor` 与 `research-lead` 的 TOML 分别是各自完整阶段提示词的权威文件。全局共同规则位于 `global/AGENTS.md`，按任务加载的方法位于 `skills/`。修改任何一层时先改该层自己的权威文件，再更新它实际需要的运行镜像。
 
 静态文件一致、TOML 可解析、全新任务加载和真实行为是四种不同证据。发布报告必须明确各自验证到哪一层。

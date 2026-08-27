@@ -18,6 +18,6 @@
 
 本文件夹中的 Root Base 是版本权威源。安装后的 `config.toml` 顶层 `developer_instructions` 是逐字运行镜像，只负责让宿主加载，不承担版本历史。
 
-工人 Base、阶段负责人 Base、共享中性 Base 与命名角色 TOML 由 `agents/` 维护。所有角色共同需要的执行规则位于 `global/AGENTS.md`，领域方法位于 `skills/`。修改一层时不把正文复制进其他权威层。
+Worker Base、共享中性 Base、两个自包含阶段角色与其他命名角色 TOML 由 `agents/` 维护。所有角色共同需要的执行规则位于 `global/AGENTS.md`，领域方法位于 `skills/`。修改一层时不把正文复制进其他权威层。
 
 发布不依赖 Python 同步脚本、常驻进程或 Hook。静态文件一致、TOML 可解析、宿主实际加载和真实任务行为是不同证据层，完成声明只覆盖已经验证的部分。

@@ -26,7 +26,7 @@
 
 Root 根据依赖、共享状态和角色能力选择执行结构。结果、做法和验收已经固定且可独立验收时，可以直接交给少量执行角色；需要持续形成方案、组织下属、协调共享状态或反复整合时，交给阶段负责人。阶段负责人完成内部调查、执行、返工、冲突处理、验证和收尾后，向 Root 交回整合结果。
 
-当前配置把 Root Base、全局共同规则、角色共同 Base 和角色专属文字分别装配到不同位置。源码审计确认命名角色使用 `fork_turns: "none"` 时，角色 `developer_instructions` 覆盖 Root 运行镜像，复制的 base instructions 仅为中性运行 Base；`all` 与有限历史模式具有不同的父历史语义。详细边界见 `prompt-architecture/runtime-loading-and-release.md`。
+当前配置把 Root Base、全局共同规则、Worker Base 和角色专属文字分别装配到不同位置；两个阶段角色直接使用完整的专属提示词。源码审计确认命名角色使用 `fork_turns: "none"` 时，角色 `developer_instructions` 覆盖 Root 运行镜像，复制的 base instructions 仅为中性运行 Base；`all` 与有限历史模式具有不同的父历史语义。详细边界见 `prompt-architecture/runtime-loading-and-release.md`。
 
 ## 修改条件
 

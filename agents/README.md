@@ -7,9 +7,9 @@
 1. 接收环境的全局 `config.toml` 将 [`shared-runtime-base-instructions.md`](shared-runtime-base-instructions.md) 配置为 `model_instructions_file`。它只包含所有责任层都安全的中性文字。
 2. Root 的完整 Base 由顶层 `developer_instructions` 加载，其权威正文位于 `prompt-lab/codex_base_instruction_5.6.md`。
 3. 运行时按角色名读取对应 `*.toml`，其中 `developer_instructions` 是角色层。
-4. `code-executor.toml` 与 `research-lead.toml` 必须逐字符以 [`stage-lead-base-instructions.md`](stage-lead-base-instructions.md) 开头。
+4. `code-executor.toml` 与 `research-lead.toml` 分别保存完整、自包含的阶段专属提示词，不共享阶段负责人 Base。
 5. 其余八个角色必须逐字符以 [`worker-subagent-base-instructions.md`](worker-subagent-base-instructions.md) 开头。
-6. TOML 内的共同 Base 是运行镜像；三份 Markdown Base 是维护权威源。共享中性 Base 不重复内联进角色 TOML。
+6. TOML 内的 Worker Base 是运行镜像；共享中性 Base 与 Worker Base 的 Markdown 文件是各自的维护权威源。共享中性 Base 不重复内联进角色 TOML。
 
 命名角色使用 `fork_turns: "none"` 时，角色 TOML 的 `developer_instructions` 覆盖父配置中的 Root developer 镜像。该 subagent 加载共享中性 Base与角色 Base，但不复制父对话历史。有限轮数仍携带对应父对话内容，不能泛化为完全隔离。
 
@@ -55,8 +55,8 @@
 
 ## 更新与验证
 
-1. 先更新对应 Markdown Base 或角色专属段落。
-2. 将 Stage/Worker Base 全文同步到相应 TOML 的 `developer_instructions` 前缀。
+1. 修改共同工人规则时先更新 Worker Base，再同步八个角色前缀；修改阶段角色时直接更新对应的自包含 TOML。
+2. 不为了消除 `code-executor` 与 `research-lead` 之间的少量相似文字重新建立共同 Stage Base。
 3. 解析全部 TOML。
-4. 逐字符核对两个 Stage 前缀和八个 Worker 前缀。
+4. 逐字符核对八个 Worker 前缀，并分别检查两个阶段角色的专属边界和方法仍然完整。
 5. 使用全新命名角色及 `fork_turns: "none"` 验证真实加载；静态文件、Git 提交和 TOML 解析不能代替运行时证据。

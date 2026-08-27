@@ -91,7 +91,7 @@
 - 多文件合同测试：2026-08-02，Spark 在不修改验收文件的条件下同时完成深层配置合并、pipeline 调用修复、orchestrator 参数接线和 CLI 文档更新，基线 5 项错误全部转为通过。它没有修改已经正确透传参数的 `cli.py`。这支持按剩余判断负担而非代码行数划分 worker；该单次合成测试不证明 Spark 适合开放式诊断，也没有比较总费用。
 - 连续执行者测试：2026-08-02，Terra High 直接从主任务接收同一个多文件工作包，独立完成读取、修改和动态验证；验收文件未改，5 项验收、模块帮助命令和实际 CLI 运行均通过。它还主动修正了 CLI 帮助与使用文档。外层测试在 184 秒后失去输出，最后一次测试活动约在启动后 204 秒，因此只能确认实现质量，不能把低首字延迟当作低完成延迟，也不能确认正常交回时间。该结果支持保留 Terra 与 Spark 两条同级路线：剩余判断较多时选 Terra，合同已经清楚时选 Spark，不建立固定接力。
 - 大型机械任务测试：2026-08-03，Spark worker 从结构化工作簿生成六张表、123 个字段、23 个单选和九个关联的飞书 schema，绝大多数转换和本地验收正确，说明工作量和文件数量不应成为 worker 的硬限制。它把“创建人改为 `created_by`”理解为改字段名而不是改字段类型，并漏掉一个双向关联的反向字段名；主任务在外部写入前的局部抽查发现并修正。该结果支持把 worker 的边界定义为“结果语义已经确定”，并要求合同用目标、上下文、交付与验收、边界明确会改变结果的不变量，而不是把任务机械限制为小补丁。
-- 配置原则：Root Base 只给主任务。由于当前运行时忽略 agent TOML 中的 `model_instructions_file`，全局继承层只加载中性 Base；Root Base 由全局 `developer_instructions` 加载，工人 Base 和阶段负责人 Base 分别镜像在对应角色实际生效的 `developer_instructions` 开头。所有角色共同需要的平台、安全、证据和验证底线放在全局 `AGENTS.md`，领域方法放 Skill，角色专属证据方式和工具边界留在各 TOML。这样不会让下级继承用户沟通、整体路由和产品判断；两份 Base 源文件作为维护源，镜像块通过静态一致性检查防止漂移。
+- 配置原则：Root Base 只给主任务。由于当前运行时忽略 agent TOML 中的 `model_instructions_file`，全局继承层只加载中性 Base；Root Base 由全局 `developer_instructions` 加载，Worker Base 镜像在八个执行角色实际生效的 `developer_instructions` 开头，两个阶段角色分别维护完整的专属提示词。所有角色共同需要的平台、安全、证据和验证底线放在全局 `AGENTS.md`，领域方法放 Skill，角色专属证据方式和工具边界留在各 TOML。这样不会让下级继承用户沟通、整体路由和产品判断；共同 Base 源文件与运行镜像通过静态一致性检查防止漂移。
 - 当前路由调整：历史 Spark 实验继续证明固定合同执行者的能力边界，但 Spark 的独立额度有限，不再据此把它设为主要执行者。worker-luna 作为常规执行者，Spark worker 只保留额度可用且速度收益明显时的路线。
 - 前向加载验证：2026-08-03 新持久会话的主任务实际加载了“目标、上下文、交付与验收、边界”和“工作量、文件数量不是 worker 限制”的规则；唯一 worker 子会话实际加载了“语义完整、可独立验收”、工作量规则和精简 PowerShell 规则。测试使用一次 `fork_turns: "none"` 委派和一次长等待，worker 正确读取唯一事实来源并结束，没有重新派活。
 - 规则编辑失败：2026-08-06，主任务用最近三轮对话委派 worker 扩展自己的职责，并明确不新增 Luna Low 角色。worker 第一次选择了工作区中的旧副本而非全局生效文件；补充真实路径后，它又擅自新增 `quick-worker`。这说明有限 fork 可以传递原始讨论，却不能替代权威文件、当前责任和最终边界；也说明提示词和长期规则的语义不能交给执行型 worker 自行形成。当前规则由掌握用户目标的负责人撰写，worker 只在最终文字或准确改法已经确定后承担机械同步。
@@ -314,14 +314,14 @@
 - **保留边界：** 状态报告不增加新的审批步骤。下一步不需要用户决定时继续推进，需要用户决定时沿用现有等待规则。
 - **验证状态：** 当前完成文字和静态同步。仍需在新的长任务中验证用户能否仅凭阶段报告判断整体进度、方向和下一步。
 
-## R28 Root Base 与两类 subagent Base 物理隔离
+## R28 Root Base、Worker Base 与阶段专属提示词物理隔离
 
-- **目标：** Base 只承担主 agent 的用户理解、整体路线、跨阶段决定和最终交付；执行型 subagent 与阶段负责人各自只收到完成本层责任所需的共同 Base 和角色专属指令。
+- **目标：** Root Base 只承担主 agent 的用户理解、整体路线、跨阶段决定和最终交付；执行型 subagent 收到共同 Worker Base 和角色专属指令，两个阶段负责人分别收到完成本领域阶段所需的完整专属指令。
 - **运行时事实：** Codex CLI `0.150.0-alpha.8` 的新任务探针确认，agent TOML 中的 `model_instructions_file` 没有替换父级 Base，两个角色仍看到 Root 规则。该行为与公开问题 [openai/codex#40042](https://github.com/openai/codex/issues/40042) 一致；当前源码的 [`build_agent_spawn_config`](https://github.com/openai/codex/blob/main/codex-rs/core/src/tools/handlers/multi_agents_common.rs) 复制父级 `BaseInstructions`，而 [`AgentRoleOverrides`](https://github.com/openai/codex/blob/main/codex-rs/core/src/agent/role.rs) 只提供角色级 `developer_instructions` 覆盖，没有传递 `model_instructions_file`。
 - **否决路线：** 不再依赖 agent TOML 中看似存在但实际未生效的 `model_instructions_file`，也不使用启动 hook 或常驻脚本在运行时拼接提示词。静态文件存在和 TOML 解析成功不能证明目标模型实际收到正确层级。
-- **当前装配：** 全局 `model_instructions_file` 只指向中性 `shared-runtime-base-instructions.md`。全局 `developer_instructions` 只保存与 Root Base 权威源逐字一致的运行时镜像；它位于 Prompt Lab Git 仓库之外，不承担版本历史。命名角色的 `developer_instructions` 替换父级这一层，并以内联的工人 Base 或阶段负责人 Base 开头，再接 `# 当前角色` 和角色专属内容。工人层覆盖八个叶子角色；阶段负责人层只覆盖 `research-lead` 与 `code-executor`。
-- **验证状态：** 10 个角色 TOML 与全局配置均通过解析；八个工人块和两个阶段负责人块与各自源文件前缀一致，Root 配置与权威源一致。新的只读真实任务中，Root 同时报告看到中性层和“主 agent 的总体责任”；`explorer` 只报告“责任边界、推进和停止、交回、当前角色”，`code-executor` 只报告“阶段责任、先验证阶段路线、验收和交回、当前角色”，二者都明确没有收到 Root 总体责任。
-- **维护边界：** 修改 Root Base 时只编辑 Prompt Lab 权威源，发布时再把完整正文原样复制到全局 `developer_instructions`，不得把运行镜像作为独立版本继续修改；修改工人 Base 或阶段负责人 Base 时同时更新对应角色提示词前缀，并重新执行解析、一致性和全新任务加载验证。当前会话已加载的旧提示词不会被热替换，行为验证必须使用新任务。
+- **当前装配：** 全局 `model_instructions_file` 只指向中性 `shared-runtime-base-instructions.md`。全局 `developer_instructions` 只保存与 Root Base 权威源逐字一致的运行时镜像；它位于 Prompt Lab Git 仓库之外，不承担版本历史。命名角色的 `developer_instructions` 替换父级这一层。八个执行角色以内联 Worker Base 开头；`research-lead` 与 `code-executor` 分别保存完整、自包含的专属提示词，不再为了少量共性共享 Stage Base。
+- **验证状态：** 上一版真实任务已经证明 Root developer 镜像不会进入使用 `fork_turns: "none"` 的命名角色。2026-08-28 取消共同 Stage Base 后，10 个角色 TOML 静态解析通过，八个 Worker 前缀逐字符一致，两个阶段角色均不含 Worker 前缀并保留各自专属结构；全新任务的两个阶段角色真实加载和行为仍须单独验证，不能沿用旧版前缀测试冒充。
+- **维护边界：** 修改 Root Base 时只编辑 Prompt Lab 权威源，发布时再把完整正文原样复制到全局 `developer_instructions`，不得把运行镜像作为独立版本继续修改；修改 Worker Base 时同步八个执行角色前缀，修改阶段角色时直接维护对应 TOML，不重新建立共同 Stage Base。当前会话已加载的旧提示词不会被热替换，行为验证必须使用新任务。
 
 ## R29 Root、阶段负责人和工人的投入责任重新归位
 

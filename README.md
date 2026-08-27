@@ -20,7 +20,7 @@
 | 中性运行 Base | [`agents/shared-runtime-base-instructions.md`](agents/shared-runtime-base-instructions.md) | 加载 | 加载 |
 | Root Base | [`prompt-lab/codex_base_instruction_5.6.md`](prompt-lab/codex_base_instruction_5.6.md) 的 `config.toml` 运行镜像 | 加载 | 被角色 `developer_instructions` 替换 |
 | 共同执行层 | [`global/AGENTS.md`](global/AGENTS.md) | 加载 | 加载 |
-| 角色层 | `agents/*.toml` | 不适用 | Stage 或 Worker Base 加角色专属文字 |
+| 角色层 | `agents/*.toml` | 不适用 | 阶段专属完整提示词，或 Worker Base 加角色专属文字 |
 | 领域方法 | `skills/*` | 按触发加载 | 按角色配置或触发加载 |
 
 命名角色配合 `fork_turns: "none"` 时，不复制父对话历史，也不加载 Root developer 镜像。有限轮数仍会携带对应父对话内容，因此只在最近用户原话或确认结论无法安全概括时使用。
@@ -51,7 +51,7 @@
 - `worker`：Spark 额度可用且速度收益明确时的高速执行责任；
 - `default`：兼容叶子入口，不用于自动路由兜底。
 
-角色共同 Base 的权威文件、内联镜像关系和运行时支持字段见 [`agents/README.md`](agents/README.md)。
+Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运行时支持字段见 [`agents/README.md`](agents/README.md)。
 
 ## 十个体系 Skill
 
@@ -78,7 +78,7 @@
 .
 ├── prompt-lab/                 # Root Base 与公开维护材料
 ├── global/AGENTS.md            # 所有角色共同读取的执行规则
-├── agents/                     # 共享、Stage、Worker Base 与 10 个角色 TOML
+├── agents/                     # 共享中性 Base、Worker Base 与 10 个角色 TOML
 ├── skills/                     # 10 个体系 Skill
 ├── examples/config.toml        # 可移植的配置合并模板
 └── INSTALL.md
@@ -86,7 +86,7 @@
 
 ## 版本边界
 
-Root Base 的唯一权威正文位于 Prompt Lab。安装后的 `config.toml` 只保存它的逐字运行镜像，不承担版本历史。角色共同 Base 的权威文件位于 `agents/`，各角色 TOML 保存运行时需要的内联镜像。
+Root Base 的唯一权威正文位于 Prompt Lab。安装后的 `config.toml` 只保存它的逐字运行镜像，不承担版本历史。Worker Base 的权威文件位于 `agents/`，八个执行角色 TOML 保存运行时需要的内联镜像；两个阶段角色各自维护完整专属提示词。
 
 这套体系不依赖 Python 同步脚本、常驻进程或 Hook 拼接提示词。发布是一次明确的复制、解析、一致性校验和真实加载验证。
 
