@@ -1,22 +1,49 @@
+
+
+<!-- fastctx:begin -->
+## Local file inspection
+
+For reading, searching, and finding local files, prefer the FastCtx MCP
+server's own tools — `inspect_local_file`, `grep`, and `glob` — over shell
+equivalents such as `cat`/`Get-Content`, `rg`/`findstr`/`Select-String`,
+and `dir`/`ls -R`.
+Use FastCtx file tools directly for local-file operations, including when a
+local reference is URI-shaped; pass the equivalent plain absolute filesystem path.
+Read only what the task needs. When you need several files, pass them to
+one `inspect_local_file` call as files=[{"path": ...}, ...] instead of one
+call per file. The last line of every result says `Complete` or
+`Partial` — continue only with the exact parameters a `Partial` note
+provides.
+
+### Batch replacement
+
+Use FastCtx's `replace` for mechanical find-and-replace across files.
+It preserves each file's encoding and line endings, supports dry-run previews,
+and rejects concurrent changes before writing. Use apply_patch for generated
+content, semantic rewrites, or small local edits.
+<!-- fastctx:end -->
+
 ## 共同执行规则
 
 每项责任以任务合同约定的结果和边界为准，持续完成到可观察结果成立或出现合同无法决定的问题。普通、可逆且合同内的细节由当前责任人处理。新事实会改变结果、权限或验收时，subagent 把具体矛盾交回上级，由主 agent 根据已有授权处理或交给用户决定。
 
-### 团队内部通信
+### 责任链与内部通信
 
-主 agent 与 subagent、subagent 彼此之间的进度、问题和结果只通过当前 agent 树的内部通信传递：使用 `collaboration.send_message` 发送消息，使用 `collaboration.followup_task` 派发后续工作，完成责任时通过 agent 的最终返回交给上级。
+团队内部的进度、问题和结果只通过当前 agent 树传递。subagent 只向自己的直接上级发送消息和最终结果，不绕过责任链直接联系主 agent 或用户；有下属的负责人先整合下属结果，再向自己的上级交回。
 
-同一责任的补充和返工使用 `collaboration.followup_task` 交回原负责人，新的独立责任使用 `collaboration.spawn_agent`。没有其他可以推进的工作时，使用 `collaboration.wait_agent` 等待 agent 树的下一条消息。
-
-subagent 只向自己的直接上级发送进度、问题和最终结果，不绕过责任链直接联系主 agent 或用户。阶段负责人整合下属结果后，再向自己的上级交回。
+有权管理下属的负责人使用 `collaboration` 工具处理内部协作：同一责任的补充和返工交回原负责人，新的独立责任创建新 agent，下一步确实依赖仍在运行的结果时再等待。没有下属权限的执行角色不创建或调度 agent。
 
 进度消息只发送会改变上级判断、暴露具体阻碍或解锁后续行动的内容。完整报告在责任完成时发送一次，不在中途消息和最终返回中重复同一结果。
 
-内部协作不得使用 `mcp__codex_app.send_message_to_thread`、`create_thread`、`fork_thread`、手写或转发 `<codex_delegation>`，也不得使用其他会在用户任务中显示“从另一项任务发送”的方式汇报。只有用户明确要求创建、管理或联系一项独立任务时，才使用 Codex 的任务工具。
+内部协作不得使用 Codex 的任务创建、任务通信或任务分叉工具，也不得手写或转发 `<codex_delegation>`。只有用户明确要求创建、管理或联系一项独立任务时，才使用这些任务工具。
 
 判断当前状态时，以能够核实的文件、配置和真实运行结果为准。区分观察到的事实、据此作出的推断和仍未验证的部分。直接接触原始材料的角色对自己观察到的事实负责。
 
-优先复用项目、平台和工具已经可靠工作的能力，用完成当前结果所需的最低复杂度推进。受阻时根据错误和当前状态寻找原因。外部状态可能改变时才等待，再次尝试能够产生新证据时才重试，否则换方法。需要改变结果、权限或验收时，按前述责任链上交。
+优先复用项目、平台和工具已经可靠工作的能力，用完成当前结果所需的最低复杂度推进。
+
+选择下一项动作以及准备继续、重试或扩大当前责任前，检查它是否会直接推进合同内可验收结果，或者产生会改变下一步判断的新信息、反馈或可比较结果。两者都不是时不执行；动作完成后，目标结果、关键未知和可行路线均没有变化时，不在相同条件下继续。外部状态会独立变化、重复用于预先定义的观测计划，或者探索用于比较有意义的备选结果时，相应等待、受控重复和样片仍可推进判断。这项检查在内部完成，不为此生成额外文档或自我叙述。
+
+受阻时根据错误和当前状态寻找原因。外部状态可能改变时才等待，再次尝试能够产生新证据时才重试，否则换方法。需要改变结果、权限或验收时，按前述责任链上交。
 
 能够通过接口、CLI 或文件直接取得结果时，优先使用这些路径。
 

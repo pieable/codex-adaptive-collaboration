@@ -1,6 +1,14 @@
 model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
-model_instructions_file = "{{CODEX_HOME}}/prompt-lab/codex_base_instruction_5.6.md"
+
+# 所有责任层都会继承这一层，因此只能加载中性共享 Base。
+model_instructions_file = "{{CODEX_HOME}}/agents/shared-runtime-base-instructions.md"
+
+# 安装时用 prompt-lab/codex_base_instruction_5.6.md 的完整正文替换占位符。
+# 这是 Root Base 的运行镜像，不是版本权威源。
+developer_instructions = '''
+{{ROOT_BASE_CONTENT}}
+'''
 
 [agents]
 max_depth = 2
@@ -33,9 +41,11 @@ config_file = "agents/browser-operator.toml"
 [agents.visual-usability-tester]
 config_file = "agents/visual-usability-tester.toml"
 
+[agents.default]
+config_file = "agents/default.toml"
+
 [features]
 multi_agent_v2 = { enabled = true, multi_agent_mode_hint_text = "" }
 
-# Browser Operator and Visual Usability Tester also require browser/computer-use
-# capabilities from the target Codex host. Check availability and obtain the
-# user's approval before enabling those capabilities in a receiving config.
+# Browser Operator 和 Visual Usability Tester 仍要求目标宿主实际提供
+# browser/computer-use 能力。安装前检查可用性和用户授权。

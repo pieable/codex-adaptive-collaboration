@@ -1,68 +1,76 @@
 # Codex Adaptive Collaboration
 
-一套面向长期协作的 Codex 配置体系。它让 Root 持续理解用户逐步表达出来的需求，维护从当前状态到完成条件的路径，并在已授权范围内调查、调度、整合和验收。
+一套面向长期协作的 Codex 配置体系。Root 负责理解用户、维护整体路线和最终验收；阶段负责人掌握完整阶段；执行型 subagent 只完成边界与验收已经确定的责任。
 
 > 这是社区配置，不是 OpenAI 官方项目。
 
 ## 它解决什么问题
 
-- 用户的要求常在纠正、选择、试用和反例中逐步明确；
-- Root 需要掌握整体路径，而不是把普通实现判断反复交还用户；
-- 大量搜索、实现和工具输出应当隔离在合适的执行者中，同时避免重复工作；
-- 自主推进必须有权限边界，替代路线也要与任务规模相称；
-- 提示词、角色和 Skill 要能随系统演进同步，而不靠堆叠临时补丁维持。
+- 先做能够验证核心价值的最小成品或 Demo，而不是在未经验证的路线中持续扩大投入；
+- 继续、重试或扩张前检查动作能否推进可验收结果或产生新证据，避免无用功和反复钻牛角尖；
+- 用户目标、整体路线和跨阶段决定留在 Root，执行细节与长日志隔离在对应责任层；
+- 小而固定的工作可以直接委派，仍需持续判断和多轮组织的工作交给阶段负责人；
+- 高成本运行、大范围修改和跨阶段影响沿责任链上报；
+- 阶段结束、路线变化或准备扩大投入时，由 Root 用视觉优先的方式向用户说明全局位置。
 
-## 组成
+## 当前提示词装配
 
-### Root Base
+| 层 | 来源 | Root | 命名 subagent（`fork_turns: "none"`） |
+| --- | --- | --- | --- |
+| 中性运行 Base | [`agents/shared-runtime-base-instructions.md`](agents/shared-runtime-base-instructions.md) | 加载 | 加载 |
+| Root Base | [`prompt-lab/codex_base_instruction_5.6.md`](prompt-lab/codex_base_instruction_5.6.md) 的 `config.toml` 运行镜像 | 加载 | 被角色 `developer_instructions` 替换 |
+| 共同执行层 | [`global/AGENTS.md`](global/AGENTS.md) | 加载 | 加载 |
+| 角色层 | `agents/*.toml` | 不适用 | Stage 或 Worker Base 加角色专属文字 |
+| 领域方法 | `skills/*` | 按触发加载 | 按角色配置或触发加载 |
 
-[`prompt-lab/codex_base_instruction_5.6.md`](prompt-lab/codex_base_instruction_5.6.md) 是当前运行时的 Root 指令。它覆盖用户协作、授权边界、任务推进、调度、验证、交付以及 Skill 的使用方式。
+命名角色配合 `fork_turns: "none"` 时，不复制父对话历史，也不加载 Root developer 镜像。有限轮数仍会携带对应父对话内容，因此只在最近用户原话或确认结论无法安全概括时使用。
 
-[`functional-block-baseline.md`](prompt-lab/functional-block-baseline.md) 保留 Base 的功能块测试基线；[`module-map.md`](prompt-lab/module-map.md) 说明各功能块的性质和修改方式。它们用于校准和维护，不替代运行时 Base。
+## 三层责任结构
 
-### 共同执行层
+```text
+用户
+  └─ Root：目标、整体路线、跨阶段决定、最终验收与用户报告
+       ├─ 阶段负责人：完整阶段、核心判断、下属组织、整合与阶段验收
+       │    └─ 执行型 subagent：一项边界和验收已经确定的责任
+       └─ 少量执行型 subagent：仅用于预计一轮即可交回的固定小任务
+```
 
-[`global/AGENTS.md`](global/AGENTS.md) 是所有角色共同读取的执行规则，承载内部通信、工具协作、成品、验证和 Windows 工作方式。Base 和各角色可以直接依赖这一层，不再各自复制相同规则。安装时把它合并到 `CODEX_HOME/AGENTS.md`，保留接收环境已有的无关内容。
+### 阶段负责人
 
-### 九个按职责选择的角色
+- `research-lead`：大规模、多轮网络研究；
+- `code-executor`：仍需连续诊断、实现、整合和验证的代码阶段。
 
-| 角色 | 责任 |
-| --- | --- |
-| `explorer` | 有界的本地只读取证 |
-| `web-researcher` | 有界的网络取证 |
-| `research-lead` | 多轮研究、来源覆盖、冲突处理和阶段综合 |
-| `code-executor` | 一个代码模块或功能阶段的调查、实现、整合、验证和收尾 |
-| `code-reviewer` | 独立、只读地评审代码变更 |
-| `worker` | 在 Spark 额度可用且速度收益明显时执行边界清楚的工作 |
-| `worker-luna` | 边界清楚的主要执行工作，包括修改、批处理、构建和测试 |
-| `browser-operator` | 需要连续页面状态的浏览器阶段 |
-| `visual-usability-tester` | 仅通过截图和坐标完成黑盒视觉可用性测试 |
+### 执行型角色
 
-这不是要求每个任务都开启全部角色。Root 根据任务的依赖、共享状态、风险和上下文隔离价值选择最简单的组织结构；一个有界步骤可以直接完成，完整而复杂的阶段才交给对应负责人。
+- `explorer`：有界本地取证；
+- `web-researcher`：有界网络取证；
+- `code-reviewer`：独立只读评审；
+- `browser-operator`：连续浏览器操作阶段；
+- `visual-usability-tester`：截图与坐标驱动的视觉黑盒测试；
+- `worker-luna`：做法和验收已经确定的主要执行责任；
+- `worker`：Spark 额度可用且速度收益明确时的高速执行责任；
+- `default`：兼容叶子入口，不用于自动路由兜底。
 
-角色 TOML 都是自包含的 `developer_instructions`，不依赖额外的 `*-base-instructions.txt`。角色的历史和关系说明见 [`agents/PROMPT_HISTORY.md`](agents/PROMPT_HISTORY.md)。
+角色共同 Base 的权威文件、内联镜像关系和运行时支持字段见 [`agents/README.md`](agents/README.md)。
 
-`browser-operator` 需要宿主实际提供浏览器能力，`visual-usability-tester` 需要 Computer Use。安装时应先检查目标 Codex 版本及父配置是否启用这些能力；它们涉及真实页面或桌面操作，不能因为复制角色文件而自动扩大权限。
+## 十个体系 Skill
 
-### 九个体系 Skill
-
-- `batch-execution`：控制重复批量操作的扩散风险和验收；
-- `code-development`：代码调查、实现、评审和分层验证；
-- `code-review`：面向可合入性与交付风险的独立评审；
-- `deep-research`：多来源、反例和综合的系统研究；
+- `batch-execution`：控制重复批量操作的扩散风险；
+- `code-development`：代码调查、实现、评审和必要验证；
+- `code-review`：独立判断代码是否适合合入或交付；
+- `deep-research`：多来源、反例和综合研究；
+- `eli5`：视觉优先地解释计划、路线、状态和取舍；
 - `product-development`：从客户现实形成产品定义并迭代验证；
 - `workflow-route-mapper`：保存任务分叉、失败路线和下一步；
-- `workflow-state-distiller`：从多轮协作恢复可执行的当前状态；
+- `workflow-state-distiller`：恢复多轮任务的可执行当前状态；
 - `write-instructions-zh`：创建和维护 Base、Agent、Skill 与长期规则；
-- `xy-axis-thinking`：追溯形成原因、明确目标并建立可比参照。
-
-每个 Skill 目录包含运行所需的当前 `SKILL.md`，以及适用的 metadata、references、agents 或变更记录；不包含本机备份或 Git 元数据。
+- `xy-axis-thinking`：追溯形成原因、明确目标并建立参照。
 
 ## 安装
 
-请让安装用的 Codex 按 [`INSTALL.md`](INSTALL.md) 合并安装。流程会保留已有的 Agents、Skills、MCP、插件和项目配置，不要求清空用户环境。
+让安装用的 Codex 按 [`INSTALL.md`](INSTALL.md) 合并安装。安装过程必须保留接收环境已有的 Agents、Skills、MCP、插件和项目配置，并通过全新 Root 与命名 subagent 任务区分静态文件一致和真实运行加载。
 
-原始模型层级是 Root 使用 `gpt-5.6-sol`，阶段负责人和评审使用 `gpt-5.6-terra`，常规执行和取证使用 `gpt-5.6-luna`，高速 Worker 使用 `gpt-5.3-codex-spark`。若目标环境没有这些模型，先由用户确认能力层级映射，不要静默替换。
+默认模型层级为：Root 使用 `gpt-5.6-sol`，阶段负责人和评审使用 `gpt-5.6-terra`，常规执行和取证使用 `gpt-5.6-luna`，高速 Worker 使用 `gpt-5.3-codex-spark`。目标环境没有对应模型时，应由用户确认能力层级映射。
 
 ## 仓库结构
 
@@ -70,19 +78,17 @@
 .
 ├── prompt-lab/                 # Root Base 与公开维护材料
 ├── global/AGENTS.md            # 所有角色共同读取的执行规则
-├── agents/                     # 9 个自包含角色 TOML
-├── skills/                     # 9 个体系 Skill 的完整目录
-├── examples/config.toml        # 可移植的注册示例
+├── agents/                     # 共享、Stage、Worker Base 与 10 个角色 TOML
+├── skills/                     # 10 个体系 Skill
+├── examples/config.toml        # 可移植的配置合并模板
 └── INSTALL.md
 ```
 
-## 设计取舍
+## 版本边界
 
-- 正确、完整和用户可用的结果优先，成本与速度在此基础上优化；
-- Root 负责跨阶段判断和最终验收，职责明确的工作交给成本合适的角色；
-- 委派用于减少上下文噪声和执行成本，不为形式增加层级；
-- 隐含目标可以帮助选择路线，但不能覆盖明确结果、权限和硬边界；
-- 当证据表明当前路线不再接近用户结果时，允许停止扩张、补证据或换路。
+Root Base 的唯一权威正文位于 Prompt Lab。安装后的 `config.toml` 只保存它的逐字运行镜像，不承担版本历史。角色共同 Base 的权威文件位于 `agents/`，各角色 TOML 保存运行时需要的内联镜像。
+
+这套体系不依赖 Python 同步脚本、常驻进程或 Hook 拼接提示词。发布是一次明确的复制、解析、一致性校验和真实加载验证。
 
 ## License
 
