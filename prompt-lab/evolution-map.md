@@ -96,7 +96,7 @@ Root 保存用户目标、整体框架、跨模块取舍和最终验收。阶段
 
 ### 当前语义
 
-完整 Root Base 只给主 agent。全局 `model_instructions_file` 只能承载所有责任层都安全的中性 Base。命名角色使用 `fork_turns: "none"` 时，角色 `developer_instructions` 覆盖 Root developer 镜像；有限轮次仍加载角色提示词并携带对应最近父对话，不能把 `none` 的隔离结论泛化到所有 fork。
+完整 Root Base 只给主 agent。全局 `model_instructions_file` 只能承载所有责任层都安全的中性 Base。命名角色使用 `fork_turns: "none"` 时，角色 `developer_instructions` 覆盖 Root developer 镜像；有限轮次仍加载角色提示词并携带对应最近父对话。创建者每次显式选择 `none` 或最少的有限轮次；`all` 与省略参数形成的完整历史继承已经被永久排除。
 
 ### 重要演变
 
@@ -106,6 +106,7 @@ Root 保存用户目标、整体框架、跨模块取舍和最终验收。阶段
 | 2026-08-25 `5ecfc3e` | 结构重写前保存角色提示词快照 | `current-effective` | backups / Git | Git 快照 |
 | 2026-08-27 `9f805d0` | 建立 Root 权威源、运行镜像和加载边界 | `current-effective` | Prompt Architecture | `static` |
 | 2026-08-28 本次校准 | 修正“只有 none 才加载命名角色提示词”的错误表述；有限 N 仍加载角色正文 | `current-effective` | 加载说明 | 已有源码/静态证据；真实组合按需验证 |
+| 2026-08-28 本次校准 | 因完整历史污染角色职责并造成巨额重复上下文，永久禁用 `fork_turns: "all"` 及省略参数形成的完整历史继承 | `user-rejected`（Full History） / `current-effective`（禁令） | Root Base / 两个阶段角色 | 运行记录已观察到失败；新规则待 fresh-task 行为验证 |
 
 ## 6. Worker Base 与执行型角色
 
