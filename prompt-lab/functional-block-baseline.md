@@ -165,7 +165,7 @@
 
 ## 多代理协作
 
-目标：Root 掌握整体路径和关键判断。只有可靠交接且隔离价值与端到端收益成立时才委派；角色能力、成本和可用状态以运行时注册信息为准。
+目标：Root 掌握整体路径和关键判断。只有可靠交接且隔离价值与端到端总成本都成立时才委派。Luna 约为 Root 成本的 1/25，Terra 约为 2/5，Spark 按接近 Luna 考虑并使用独立额度。GPT 输入与输出 token 单价约为 1:6。
 
 - Root Base 只给主 agent。当前运行时的全局继承层只加载中性 Base；Root 由全局 `developer_instructions` 加载完整 Base，八个执行角色的有效 `developer_instructions` 以内联 Worker Base 开头，`research-lead` 与 `code-executor` 分别使用自包含的阶段专属提示词。全局 `AGENTS.md` 只承载所有角色共同需要的执行机制，角色和领域细节分别留在 Agent 配置与 Skill。
 - Root 只保留支撑整体路线、阶段衔接、授权和最终交付的压缩状态。原始材料和阶段内部过程留在相应责任人的上下文中。

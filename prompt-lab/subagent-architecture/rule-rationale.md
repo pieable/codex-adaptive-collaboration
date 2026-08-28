@@ -321,7 +321,7 @@
 - **否决路线：** 不再依赖 agent TOML 中看似存在但实际未生效的 `model_instructions_file`，也不使用启动 hook 或常驻脚本在运行时拼接提示词。静态文件存在和 TOML 解析成功不能证明目标模型实际收到正确层级。
 - **当前装配：** 全局 `model_instructions_file` 只指向中性 `shared-runtime-base-instructions.md`。全局 `developer_instructions` 只保存与 Root Base 权威源逐字一致的运行时镜像；它位于 Prompt Lab Git 仓库之外，不承担版本历史。命名角色的 `developer_instructions` 替换父级这一层。八个执行角色以内联 Worker Base 开头；`research-lead` 与 `code-executor` 分别保存完整、自包含的专属提示词，不再为了少量共性共享 Stage Base。
 - **验证状态：** 上一版真实任务已经证明 Root developer 镜像不会进入使用 `fork_turns: "none"` 的命名角色。2026-08-28 取消共同 Stage Base 后，10 个角色 TOML 静态解析通过，八个 Worker 前缀逐字符一致，两个阶段角色均不含 Worker 前缀并保留各自专属结构；全新任务的两个阶段角色真实加载和行为仍须单独验证，不能沿用旧版前缀测试冒充。
-- **维护边界：** 修改 Root Base 时只编辑 Prompt Lab 权威源，发布时再把完整正文原样复制到全局 `developer_instructions`，不得把运行镜像作为独立版本继续修改；修改 Worker Base 时同步八个执行角色前缀，修改阶段角色时直接维护对应 TOML，不重新建立共同 Stage Base。当前会话已加载的旧提示词不会被热替换，行为验证必须使用新任务。
+- **维护边界：** 维护者先修改私人 Prompt Lab 权威源，再发布公开正文并安装运行镜像，不得在副本中独立维护；修改 Worker Base 时同步八个执行角色前缀，修改阶段角色时直接维护对应 TOML。当前只有两个方法差异明显的阶段角色，因此不建立共同 Stage Base；将来阶段角色增多并形成真实、无冲突的共同规则时可以重新评估。当前会话已加载的旧提示词不会被热替换，行为验证必须使用新任务。
 
 ## R29 Root、阶段负责人和工人的投入责任重新归位
 

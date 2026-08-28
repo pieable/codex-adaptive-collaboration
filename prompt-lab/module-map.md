@@ -12,15 +12,16 @@
 
 ## 维护材料
 
-- `codex_base_instruction_5.6.md` 是 Root Base 的唯一权威源；仓库外 `config.toml` 的 `developer_instructions` 是运行时镜像。
-- `functional-block-baseline.md` 是功能块快速比较的唯一维护入口，只覆盖局部功能面；它不直接替换运行版，也不能单独证明完整行为。
+- `codex_base_instruction_5.6.md` 是 Root Base 的公开发行权威正文；维护者的私人 Prompt Lab 保存编写和完整演变历史，安装后的 `config.toml` 是运行镜像。
+- `evolution-map.md` 按行为和功能块记录公开版本的规则演变、迁移、否决和验证状态。
+- `functional-block-baseline.md` 是当前功能块的保真基线和快速比较入口，只覆盖局部功能面；它不直接替换运行版，也不能单独证明完整行为。
 - `prompt-architecture/functional-block-map.md` 说明功能块的实际承载层；`prompt-architecture/runtime-loading-and-release.md` 记录加载、版本边界和发布步骤。
 - `subagent-architecture/` 记录当前多代理规则及其形成理由。
 - 本公开发行仓库不包含个人会话、本机备份、账户配置或完整内部历史；这些材料即使存在于维护环境，也不进入日常运行上下文。
 
 ## 正文结构原则
 
-每个可维护的提示词块从大到小组织：**目的与原则 → 责任/权限边界 → 工作路线/阶段关系 → 具体行动/工具 → 验证/交回/例外**。这是一项运行正文与维护文档的组织原则，不要求把历史快照、版本索引或实验记录改写成同一格式。
+每个可维护的提示词块从大到小组织：**目的与原则 → 责任与决定权限 → 工作路线与阶段关系 → 具体行动与工具 → 验证、交回与例外**。下一层细化和落实上一层，不能改变上一层已经确定的结果、权限或适用范围。历史快照、版本索引和实验记录不要求改写成运行正文的结构。
 
 ## 多代理装配
 
