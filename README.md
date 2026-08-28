@@ -1,7 +1,6 @@
 <div align="center">
   <img src="assets/four-star-dragon-ball.png" alt="四星龙珠" width="180">
   <h1>龙珠 Agent</h1>
-  <p>召集能力各异的 Agent，共同完成复杂愿望。</p>
 </div>
 
 一套面向长期协作的 Codex 配置体系。Root 负责理解用户、维护整体路线和最终验收；阶段负责人掌握完整阶段；执行型 subagent 只完成边界与验收已经确定的责任。
