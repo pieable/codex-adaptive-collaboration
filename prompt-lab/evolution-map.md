@@ -6,7 +6,7 @@
 
 - 维护者的私人 Prompt Lab 保存完整的编写与演变历史；本文件只公开对理解当前发行版本有用的部分。
 - Git 保存每个版本的精确文字、删除内容和快照；本文件解释变化之间的关系。
-- GitHub `pieable/codex-adaptive-collaboration` 的 commit 或 tag 表示公开发行版本；私有未发布变化不能冒充公开版本。
+- GitHub `pieable/dragon-ball-agent` 的 commit 或 tag 表示公开发行版本；私有未发布变化不能冒充公开版本。
 - 本机 `config.toml`、全局 `AGENTS.md`、角色 TOML 和已安装 Skill 是运行镜像，不独立维护提示词历史。
 - 验证分为 `static`、`mirror/TOML`、`fresh-task-load` 和 `real-behavior`。上一层通过不能证明下一层。
 
