@@ -94,6 +94,7 @@ Root 保存用户目标、整体框架、跨模块取舍和最终验收。阶段
 | 2026-08-29 本次校准 | Terra 保留核心判断和核心代码，不设机械调用上限；Luna 承担已确定的连续执行，阶段完成后不再通过 followup 扩成整个项目 | `current-effective` | Root Base / `code-executor` / 基线 | RP 任务提供反例；新规则待 fresh-task 行为验证 |
 | 2026-08-29 本次校准 | Reviewer 从问题清单角色明确为对当前代码给出“可合入”“要求修改”或“证据不足”的独立评审者 | `current-effective` | `code-reviewer` / `code-executor` / code Skills | `static`；真实评审闭环待验证 |
 | 2026-08-29 本次校准 | 来源搜索和路线内核验交给 Luna，`research-lead` 集中处理结构、冲突和阶段综合，Root 不因材料重要而重新搜索 | `current-effective` | `deep-research` / `research-lead` / 基线 | `static`；真实研究任务待验证 |
+| 2026-08-29 本次校准 | 可见界面、视觉反馈或完整用户操作路径进入代码阶段验收时，由 `code-executor` 触发 `visual-usability-tester` 完成首次用户视角黑盒验证 | `current-effective` | `code-executor` | `static`；真实代码阶段待验证 |
 
 ## 5. Root-only 加载与上下文继承
 
