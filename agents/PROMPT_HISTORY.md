@@ -55,3 +55,11 @@ FastCtx 的具体文件工具协议由运行时工具说明提供，不再复制
 执行型 subagent 不继承完整的主 agent Base。全局 `AGENTS.md` 因此补充所有责任人都会直接使用的规则：按合同结果完成责任，以当前事实工作，采用最低复杂度并在受阻时根据证据换方法，合并无依赖工具调用，制作可独立使用的成品，并按实际证据层验收。
 
 整体路线、用户授权、Plan mode、模型成本和主 agent 的调度判断没有下放。`code-executor` 已经具备阶段内委派条件和共享状态边界，`research-lead` 也保留自己的研究分派规则，因此角色提示词没有复制共同段落。
+
+## 2026-08-30 代码开发三基石与自包含委派
+
+代码开发的基础协作由 `code-executor`、`explorer` 和 `worker-luna` 组成。Code Executor 保留仍会改变模块设计的连续判断与核心实现，用 Explorer 隔离一个只读证据问题，用 Worker Luna 连续完成做法和验收已经确定的实现、测试与普通修正。Explorer 不提供自己的产品或路线建议；Worker Luna 不把连续工作拆回给上级逐步遥控。
+
+具有下属调度权的两个阶段角色统一显式使用 `fork_turns: "none"`。目的、背景、行动、结果和边界是固定委派接口；最近对话中的必要决定进入合同或稳定项目文件。项目 `AGENTS.md` 同时可以作为项目专属规则和权威文件索引。有限最近轮次不再作为自动上下文来源，Full History 与省略参数继续禁用。
+
+本轮保持 `code-executor` 和 `research-lead` 内联的官方 Skill 章节不变。对同批 `research-lead`、`code-reviewer`、`code-development` 与 `code-review` 的逐段复审没有发现需要随风格偏好整体重写的行为问题；固定合同字段、评审三结论和独立改变动作的验证边界继续保留。

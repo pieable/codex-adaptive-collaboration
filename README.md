@@ -26,7 +26,7 @@
 | 角色层 | `agents/*.toml` | 不适用 | 阶段专属完整提示词，或 Worker Base 加角色专属文字 |
 | 领域方法 | `skills/*` | 按触发加载 | 按角色配置或触发加载 |
 
-命名角色配合 `fork_turns: "none"` 时，不复制父对话历史，也不加载 Root developer 镜像。有限轮数仍会携带对应父对话内容，因此只在最近用户原话或确认结论无法安全概括时使用。所有委派必须显式指定 `fork_turns`；本体系绝不使用 `all`，也不省略参数形成 Full History。
+命名角色配合 `fork_turns: "none"` 时，不复制父对话历史，也不加载 Root developer 镜像。所有自动委派都显式使用 `none`；必要的用户决定进入自包含合同或稳定项目文件，不使用有限轮数、`all`，也不省略参数。项目 `AGENTS.md` 可以同时保存项目专属规则和权威文件索引，示例见 [`examples/project-AGENTS.md`](examples/project-AGENTS.md)。
 
 ## 三层责任结构
 
@@ -83,7 +83,7 @@ Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运�
 ├── global/AGENTS.md            # 所有角色共同读取的执行规则
 ├── agents/                     # 共享中性 Base、Worker Base 与 10 个角色 TOML
 ├── skills/                     # 10 个体系 Skill
-├── examples/config.toml        # 可移植的配置合并模板
+├── examples/                   # 配置合并与项目 AGENTS 模板
 └── INSTALL.md
 ```
 

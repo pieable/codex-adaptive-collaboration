@@ -13,7 +13,7 @@
 | 角色层 | `agents/*.toml` 的 `developer_instructions` | 不适用 | 加载 | `agents/` |
 | 领域方法 | 当前会话或角色配置提供的 Skill | 按触发加载 | 按触发或角色配置加载 | `skills/` |
 
-命名角色使用 `fork_turns: "none"` 时，其 TOML `developer_instructions` 覆盖父配置中的 Root developer 镜像；父配置的 base instructions 仍会复制，因此 `model_instructions_file` 只能放所有责任层都安全的中性 Base。有限轮次仍携带对应的最近父对话。Full History 会继承完整父历史、上级模型和推理强度，因此本体系永久禁用 `fork_turns: "all"`，也禁止省略参数形成同样的完整历史继承。
+命名角色使用 `fork_turns: "none"` 时，其 TOML `developer_instructions` 覆盖父配置中的 Root developer 镜像；父配置的 base instructions 仍会复制，因此 `model_instructions_file` 只能放所有责任层都安全的中性 Base。有限轮次能够携带最近父对话，但当前体系不使用这种按时间截取的上下文；所有委派用 `none`、自包含合同和稳定来源交接。Full History 会继承完整父历史、上级模型和推理强度，因此永久禁用 `fork_turns: "all"`，也禁止省略参数形成同样的完整历史继承。
 
 ## 编写、公开发行与运行镜像
 

@@ -11,7 +11,7 @@
 5. 其余八个角色必须逐字符以 [`worker-subagent-base-instructions.md`](worker-subagent-base-instructions.md) 开头。
 6. TOML 内的 Worker Base 是运行镜像；共享中性 Base 与 Worker Base 的 Markdown 文件是各自的维护权威源。共享中性 Base 不重复内联进角色 TOML。
 
-命名角色使用 `fork_turns: "none"` 时，角色 TOML 的 `developer_instructions` 覆盖父配置中的 Root developer 镜像。该 subagent 加载共享中性 Base 与角色 Base，但不复制父对话历史。有限轮数仍携带对应父对话内容；本体系只允许 `none` 或最少的有限轮数，永久禁用 `all` 与省略参数形成的 Full History。
+命名角色使用 `fork_turns: "none"` 时，角色 TOML 的 `developer_instructions` 覆盖父配置中的 Root developer 镜像。该 subagent 加载共享中性 Base 与角色 Base，但不复制父对话历史。运行时虽然支持有限轮数携带最近父对话，本体系统一显式使用 `none`，用自包含合同和稳定项目来源交接；`all` 与省略参数形成的 Full History 永久禁用。
 
 ## 两类责任
 

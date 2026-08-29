@@ -100,7 +100,7 @@ Root 保存用户目标、整体框架、跨模块取舍和最终验收。阶段
 
 ### 当前语义
 
-完整 Root Base 只给主 agent。全局 `model_instructions_file` 只能承载所有责任层都安全的中性 Base。命名角色使用 `fork_turns: "none"` 时，角色 `developer_instructions` 覆盖 Root developer 镜像；有限轮次仍加载角色提示词并携带对应最近父对话。创建者每次显式选择 `none` 或最少的有限轮次；`all` 与省略参数形成的完整历史继承已经被永久排除。
+完整 Root Base 只给主 agent。全局 `model_instructions_file` 只能承载所有责任层都安全的中性 Base。命名角色使用 `fork_turns: "none"` 时，角色 `developer_instructions` 覆盖 Root developer 镜像。运行时虽然支持有限轮次携带最近父对话，当前体系仍把这种按时间截取的隐式依赖排除在自动委派之外；创建者一律显式使用 `none`，用自包含合同和稳定项目来源传递上下文。`all` 与省略参数形成的完整历史继承继续永久禁用。
 
 ### 重要演变
 
@@ -111,6 +111,7 @@ Root 保存用户目标、整体框架、跨模块取舍和最终验收。阶段
 | 2026-08-27 `9f805d0` | 建立 Root 权威源、运行镜像和加载边界 | `current-effective` | Prompt Architecture | `static` |
 | 2026-08-28 本次校准 | 修正“只有 none 才加载命名角色提示词”的错误表述；有限 N 仍加载角色正文 | `current-effective` | 加载说明 | 已有源码/静态证据；真实组合按需验证 |
 | 2026-08-28 本次校准 | 因完整历史污染角色职责并造成巨额重复上下文，永久禁用 `fork_turns: "all"` 及省略参数形成的完整历史继承 | `user-rejected`（Full History） / `current-effective`（禁令） | Root Base / 两个阶段角色 | 运行记录已观察到失败；新规则待 fresh-task 行为验证 |
+| 2026-08-30 本次校准 | 有限最近轮次也会形成按时间截取、难复现的隐式依赖；全部自动委派改为 `fork_turns: "none"`，必要上下文进入合同或项目权威来源 | `current-effective` | Root Base / 阶段角色 / 项目 `AGENTS.md` 索引 | 长任务轨迹与最近三轮失败案例支持；fresh-task 行为待验证 |
 
 ## 6. Worker Base 与执行型角色
 
@@ -202,6 +203,7 @@ Root Base 的 Skill 章节保留完整官方中文翻译，不再自行压缩、
 | 继续自行改写当前官方 Skill 提示词 | `user-rejected` | 实际使用后官方版本更稳定 | 保留当前官方 Skill 提示词 | 用户明确要求针对新证据重新评估 |
 | 用 Python、常驻进程或 Hook 自动拼接提示词发布 | `user-rejected` / `superseded` | 增加不必要机制和信任状态 | 直接修改权威文件并明确复制发布 | 宿主提供原生、透明且确有收益的机制并获用户同意 |
 | 静态同步或 TOML 解析通过即宣称真实行为完成 | `experiment-failed` / `superseded` | 证据层次不足 | 分开报告静态、镜像、加载和真实行为 | 不适用；只能补足相应真实证据 |
+| 用最近有限轮次代替自包含委派合同 | `user-rejected` / `superseded` | 时间邻近不等于责任相关，容易携带旧路线并形成不可复现的隐式依赖 | `fork_turns: "none"` + 完整合同 + 项目稳定来源 | 宿主提供可验证的语义检索式上下文继承并经真实任务证明净收益 |
 
 ## 维护规则
 
