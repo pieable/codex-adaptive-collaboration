@@ -39,6 +39,18 @@
 | “常见风险的检查方向” | CR-03、CR-04、CR-06 |
 | “评审独立性” | CR-05 |
 
+## `company-research-brief`
+
+| 正文 | 理由 |
+|---|---|
+| description、开头、“从要作出的决定组织研究” | CRB-01、CRB-07 |
+| “先建立公司和产品线地图” | CRB-02、CRB-04、CRB-05 |
+| “证据决定结论强度” | CRB-03、CRB-04 |
+| “形成市场和比较判断” | CRB-05、CRB-06 |
+| “给出当前处理意见” | CRB-07 |
+| “把研究底稿变成可直接阅读的成品” | CRB-08、CRB-09 |
+| “按需读取” | CRB-10 |
+
 ## `deep-research`
 
 | 正文 | 理由 |
@@ -55,8 +67,8 @@
 |---|---|
 | description、开头 | E-01 |
 | “确定受众和用途” | E-01、E-05 |
-| “先让人掌握全局” | E-01、E-02 |
-| “视觉优先，文字负责决定” | E-02、E-03、E-04 |
+| “先让人掌握全局” | E-01、E-02、E-02A |
+| “视觉优先，文字负责决定” | E-02、E-02A、E-03、E-04 |
 | “调整语言” | E-05 |
 | “准确性边界” | E-01、E-04 |
 
@@ -66,11 +78,11 @@
 |---|---|
 | description、产品观 | PD-01、PD-02 |
 | “与客户共同形成决定” | PD-02 |
-| “倾听客户” | PD-02 |
+| “倾听客户” | PD-02、PD-02A |
 | “定义问题” | PD-03 |
 | “发明解决方案” | PD-04 |
-| “完善解决方案” | PD-05 |
-| “测试并迭代” | PD-01、PD-06 |
+| “完善解决方案” | PD-05、PD-05A |
+| “测试并迭代” | PD-01、PD-06、PD-06A |
 | “选择工具” | PD-08 |
 | “形成结果并交给实现” | PD-07 |
 
@@ -83,13 +95,13 @@
 | 正文 | 理由 |
 |---|---|
 | description、“目标” | WRM-01、WRM-02 |
-| “默认产物” | WRM-06 |
+| “默认产物” | WRM-06、WRM-06A |
 | “记录什么” | WRM-01、WRM-02、WRM-03 |
 | “编号与路线” | WRM-04 |
 | “节点与连接线” | WRM-04、WRM-05 |
 | “分叉语义” | WRM-05 |
-| “图形状态” | WRM-04、WRM-05、WRM-06 |
-| “维护流程”“验收” | WRM-02、WRM-03、WRM-06 |
+| “图形状态” | WRM-04、WRM-05、WRM-06、WRM-06A |
+| “维护流程”“验收” | WRM-02、WRM-03、WRM-06、WRM-06A |
 
 ## `workflow-state-distiller`
 
@@ -111,9 +123,10 @@
 
 | 正文 | 理由 |
 |---|---|
+| description | WI-00 |
 | “目标” | WI-01 |
 | “确定提示词需要说明什么” | WI-02、WI-03 |
-| “结构” | WI-04 |
+| “结构” | WI-04、WI-04A、WI-04B、WI-04C |
 | “明确本次要改变的表现” | WI-05、WI-06、WI-07、WI-12 |
 | “恢复现有提示词的来路” | WI-08、WI-09、WI-19 |
 | “确定规则放在哪里” | WI-10、WI-11 |
@@ -136,3 +149,22 @@
 | “边界” | XY-01、XY-03、XY-04、XY-05 |
 
 `xy-axis-thinking` 已由用户冻结，不因这张覆盖表重新进入优化候选。
+
+## Skill 的 `agents/openai.yaml`
+
+这些文件不是隐式匹配来源。模型是否把某项任务与 Skill 匹配，主要看 `SKILL.md` frontmatter 的 `name` 和 `description`。`display_name` 与 `short_description` 用于用户界面；`default_prompt` 是用户显式调用时使用的建议提示，因此仍会影响那次调用，必须准确概括正文，不能加入正文没有的权限、流程或结论。
+
+| Skill | 界面和默认提示的核对依据 |
+|---|---|
+| `batch-execution` | BE-01、BE-03、BE-04 |
+| `code-development` | CD-01、CD-03、CD-06、CD-07 |
+| `code-review` | CR-01、CR-02 |
+| `company-research-brief` | CRB-01、CRB-03、CRB-07 |
+| `deep-research` | DR-01、DR-03、DR-05 |
+| `product-development` | PD-01、PD-02、PD-07 |
+| `search-source-registry` | SSR-01、SSR-03、SSR-11 |
+| `workflow-state-distiller` | WSD-01、WSD-02、WSD-08 |
+| `write-instructions-zh` | WI-00、WI-01、WI-02、WI-16 |
+| `xy-axis-thinking` | XY-01、XY-02、XY-03、XY-04 |
+
+当前这些文件都只有 `interface`，没有 `policy` 或依赖配置。若以后新增 `policy.allow_implicit_invocation` 或工具依赖，它们会产生新的调用行为，必须另建理由和验证，不能只作为界面文字处理。

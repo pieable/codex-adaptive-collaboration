@@ -56,11 +56,12 @@
 
 Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运行时支持字段见 [`agents/README.md`](agents/README.md)。
 
-## 十一个体系 Skill
+## 十二个体系 Skill
 
 - `batch-execution`：控制重复批量操作的扩散风险；
 - `code-development`：代码调查、实现、评审和必要验证；
 - `code-review`：独立判断代码是否适合合入或交付；
+- `company-research-brief`：补全公司公开信息、比较产品线与同业并形成投前初筛；
 - `deep-research`：多来源、反例和综合研究；
 - `eli5`：视觉优先地解释计划、路线、状态和取舍；
 - `product-development`：从客户现实形成产品定义并迭代验证；
@@ -72,7 +73,7 @@ Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运�
 
 ## 安装
 
-让安装用的 Codex 按 [`INSTALL.md`](INSTALL.md) 合并安装。安装过程必须保留接收环境已有的 Agents、Skills、MCP、插件和项目配置，并通过全新 Root 与命名 subagent 任务区分静态文件一致和真实运行加载。
+让安装用的 Codex 按 [`INSTALL.md`](INSTALL.md) 合并安装。安装过程必须保留接收环境已有的 Agents、Skills、MCP、插件和项目配置。可以按当次成本和验收需要选择是否创建全新 Root 与命名 subagent 测试；没有执行时明确把真实运行加载标为未验证。
 
 默认模型层级为：Root 使用 `gpt-5.6-sol`，阶段负责人和评审使用 `gpt-5.6-terra`，常规执行和取证使用 `gpt-5.6-luna`，高速 Worker 使用 `gpt-5.3-codex-spark`。目标环境没有对应模型时，应由用户确认能力层级映射。
 
@@ -83,7 +84,8 @@ Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运�
 ├── prompt-lab/                 # Root Base 与公开维护材料
 ├── global/AGENTS.md            # 所有角色共同读取的执行规则
 ├── agents/                     # 共享中性 Base、Worker Base 与 10 个角色 TOML
-├── skills/                     # 11 个体系 Skill
+├── skills/                     # 12 个体系 Skill
+├── hooks/                      # 强制 fork_turns:none 的 PreToolUse 保护
 ├── examples/                   # 配置合并与项目 AGENTS 模板
 └── INSTALL.md
 ```
@@ -92,7 +94,7 @@ Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运�
 
 本仓库 Prompt Lab 中的 Root Base 是当前公开发行权威正文；维护者的私人 Prompt Lab 保存编写与完整演变历史。安装后的 `config.toml` 只保存逐字运行镜像，不承担版本历史。Worker Base 的公开发行文件位于 `agents/`，八个执行角色 TOML 保存运行时需要的内联镜像；两个阶段角色各自维护完整专属提示词。
 
-这套体系不依赖 Python 同步脚本、常驻进程或 Hook 拼接提示词。发布是一次明确的复制、解析、一致性校验和真实加载验证。
+这套体系不依赖 Python 同步脚本、常驻进程或 Hook 拼接提示词。`hooks/` 只机械保护 subagent 的 `fork_turns:none` 参数，不生成或拼接提示词。发布是一次明确的复制、解析和一致性校验；真实加载验证按当次验收需要执行并单独报告。
 
 ## License
 

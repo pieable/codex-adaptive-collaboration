@@ -30,6 +30,9 @@
 | C-24 | 用户说明创建 Workflow Route Mapper 的首要目的是保存失败：失败可能为成功路线提供灵感，也能告诉后来接力的模型为什么不选旧路线 | 会改变后续判断的失败属于可复用知识；保留失败原因可以防止相同条件下重复无用功 | `current-effective` | 2026-08-30 用户确认；`workflow-route-mapper/SKILL.md` |
 | C-25 | Spark Worker 曾以一千多 Token/秒完成确定执行，但独立额度很少；Worker Luna 被专门优化为常用替代品。旧版部分有效减负来自 low reasoning 和关闭无关注入，大量环境、权限与工具字段则从未被运行时读取 | 高速稀缺角色只用于适合的确定合同；无效配置不能被当作速度优化，稳定低价替代角色需要以当前真实速度、质量、返工和 Root 唤醒成本重新验收 | `conditional + unverified` | Agents Git `f6d8ab0`、`479a4ac`；本机 `agents/README.md`；2026-08-30 用户确认 |
 | C-26 | Workflow State Distiller 的“决定理解保存在哪里”整章在 2026-08-12 被记录为有意删除，却在 Git `22d1993` 恢复且无原因；2026-08-30 用户确认现章可以保留，但只是附带作用 | 当前正文和旧维护记录冲突时不能任选一边；用后续用户决定解决状态，同时保护 Skill 的蒸馏校准主目的 | `current-effective + conditional` | `workflow-state-distiller/CHANGELOG.md`；Git `22d1993`；2026-08-30 用户确认 |
+| C-27 | `fork_turns` Hook 的旧 matcher 没有包含 Desktop 实际调用名 `multi_agent_v1__spawn_agent`，真实测试中 `all` 没有触发 Hook 并成功创建 subagent | Hook 必须根据真实宿主观察到的 canonical tool name 匹配；脚本和配置静态正确不能证明工具调用已经经过 Hook | matcher 已修正；真实拦截仍 `unverified` | rollout `01a04f09-695b-7b70-898b-14173036b94f`；`hooks/`；`runtime-configuration.md` RC-06 |
+| C-28 | 用户提出的具体方案可能不适合整体产品，但其不满、直觉和建议出现的原因常能指出真实问题或新方向 | 先恢复用户想改变的体验和底层需要，再结合全局约束设计方案；既不盲从表面方案，也不忽略用户信号 | `current-effective` | Root Base R-17；Mark Rosewater Lesson 19；NN/g User Need Statements 与 Bad Design Suggestions；2026-08-30 用户确认 |
+| C-29 | 旧 `company-research-brief` 经多轮实验积累了固定字数、固定标题、强制 report-writer、DeepSeek 润色和 Word 样式等已撤回路线，但真实用途始终是帮助风投同事补全公司信息、比较产品线并作投前初筛 | 重新制作成熟 Skill 时从真实使用决定和有效证据边界重建，不把全部历史文字或已否决实现自动并集回当前正文 | 新稿 `current-effective + unverified` | 旧本机 Skill 与命名备份；企业投研 rollout；`skills/company-research-brief/RULE_RATIONALE.md` |
 
 ## 仍缺少的真实案例
 

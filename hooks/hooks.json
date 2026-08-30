@@ -1,0 +1,19 @@
+{
+  "description": "Require clean-context contracts for internal subagent delegation.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^(Agent|spawn_agent|collaboration\\.spawn_agent|collaborationspawn_agent|multi_agent_v1__spawn_agent)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -NoProfile -NonInteractive -File \"{{CODEX_HOME}}\\hooks\\fork-turns-guard.ps1\"",
+            "commandWindows": "& \"C:\\Program Files\\PowerShell\\7\\pwsh.exe\" -NoProfile -NonInteractive -File \"{{CODEX_HOME}}\\hooks\\fork-turns-guard.ps1\"",
+            "timeout": 5,
+            "statusMessage": "Checking subagent context boundary"
+          }
+        ]
+      }
+    ]
+  }
+}

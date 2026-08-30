@@ -48,7 +48,10 @@
 - Shared Runtime Base、Worker Base 和每个 Agent TOML 的 `developer_instructions`。
 - 本仓库维护的每个 Skill。
 - 本机存在但尚未进入公开仓库的用户维护 Skill。
+- 安装合同、示例配置、项目 `AGENTS.md` 模板，以及为规则提供机械保护的 Hook。
 - 外部、官方或来源未知的 Skill 只记录来源、版本和漂移，不把上游规则伪装成本机用户规则。
+
+`SKILL.md` 的 frontmatter `description` 决定 Skill 的隐式匹配范围。`agents/openai.yaml` 中的 `display_name` 和 `short_description` 是用户界面文字；`default_prompt` 是用户显式调用 Skill 时使用的建议提示，会影响这条显式调用，但不决定模型是否隐式选择 Skill。出现 `policy` 或依赖配置时，才会另外产生隐式调用政策或工具依赖行为。上述元数据仍需与 Skill 正文一致，但不能误算成另一份模型 Base。
 
 本机额外 Skill 的逐项状态见 [`installed-skills.md`](installed-skills.md)。
 当前 Skill 正文与理由的覆盖关系见 [`skill-coverage.md`](skill-coverage.md)，跨层重复、迁移和剩余验证项见 [`cross-layer-audit.md`](cross-layer-audit.md)。

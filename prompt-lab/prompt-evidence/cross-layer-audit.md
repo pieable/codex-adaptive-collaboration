@@ -40,13 +40,14 @@
 4. 公开 `visual-usability-tester.toml` 和 `agents/README.md` 落后于用户确认的本机版本。现已从本机向公开仓库同步，未反向覆盖。
 5. `search-source-registry` 是通用研究基础，却只存在于本机安装目录。现已审计正文、备份、references 和 scripts，并将运行文件与规则理由纳入公开仓库；历史备份不进入发行目录。
 6. `workflow-state-distiller` 的保存位置章节在旧维护记录和当前正文之间冲突。用户已确认保留，但它只是附带作用；主目的仍是蒸馏和校准。状态已写回 CHANGELOG、理由和案例 C-26。
+7. `company-research-brief` 已按风投同事的真实用途重新定义并纳入公开体系。旧备份继续作为历史证据，不恢复固定字数、固定标题、强制 report-writer、DeepSeek 润色或固定 Word 样式。
+8. 安装、配置、项目 `AGENTS.md` 和 Fork Turns Hook 原先不在规则证据范围。现已建立 `runtime-configuration.md`，并修正 Hook matcher 对真实 `multi_agent_v1__spawn_agent` 名称的遗漏。
 
 ## 本轮没有当成缺口的内容
 
 - 阶段角色没有复制 Root 的“新模块形成新阶段合同”。阶段负责人只管理当前阶段和允许的叶子执行者，新阶段由 Root 创建；全局责任链已经要求合同外问题上交。
 - Explorer、Web Researcher、Worker 和 Worker Luna 关闭 Skill 指令注入不是遗漏。它们获得做法或取证边界已经确定的合同；需要选择领域方法的责任留在 Root 或阶段负责人。
 - 共同 Stage Base 当前没有建立，是因为只有两个阶段负责人且领域方法不同。未来角色增多并出现真实共享规则时可以重新评估，不是永久禁止。
-- `company-research-brief` 没有纳入公共体系不是遗漏。用户确认它是给风投同事的旧 Skill，已经久未维护，未来应作为独立产品任务重做。
 - 外部、官方或来源未知的 Skill 不建立用户规则理由，只记录来源、版本和本地漂移。
 
 ## 仍需真实验证的部分
@@ -57,6 +58,7 @@
 - Worker Luna 当前速度、正确率、返工次数和 Root 唤醒成本是否仍接近当初的优化目标。
 - Visual Usability Tester 的 Browser/Computer Use 继承和 Luna low 黑盒行为。
 - `search-source-registry` 的实时来源可访问性、候选召回和网络 API 变化。
+- 新 `company-research-brief` 在风投同事真实公司初筛、产品线比较和报告交付中的效果。
 - `frontend-design`、`markitdown-files` 的上游来源，以及 `resume-jd-optimizer-cn` 的版本冲突。
 
 这些未验证项不能通过继续改提示词正文解决。它们应在相应真实宿主、模型或网络任务中取得证据后，再决定是否需要局部修正。

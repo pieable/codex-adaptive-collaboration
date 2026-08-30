@@ -1,6 +1,6 @@
 # 给安装 AI 的任务合同
 
-把本仓库合并安装到当前用户真实使用的 `CODEX_HOME`，使 Root Base、共同执行层、Worker Base、两个自包含阶段角色、十个命名角色和十一个体系 Skill 在新任务中可用。
+把本仓库合并安装到当前用户真实使用的 `CODEX_HOME`，使 Root Base、共同执行层、Worker Base、两个自包含阶段角色、十个命名角色和十二个体系 Skill 在新任务中可用，并安装用于保护 subagent 上下文边界的 Hook。
 
 ## 目标与边界
 
@@ -17,7 +17,7 @@
 2. 在 `CODEX_HOME` 下创建 `prompt-lab`、`agents`、`skills` 和独立备份目录。
 3. 复制 `prompt-lab/` 中的 Root Base 与公开维护材料。
 4. 复制 `agents/` 中的共享中性 Base、Worker Base、十份角色 TOML 和维护说明。
-5. 复制 `skills/` 下十一个体系 Skill 的完整目录。
+5. 复制 `skills/` 下十二个体系 Skill 的完整目录。
 6. 把 `global/AGENTS.md` 的共同执行层合并到 `CODEX_HOME/AGENTS.md`。保留已有无关内容，已经存在的相同规则不重复写入。
 7. 把示例中出现的 `{{CODEX_HOME}}` 替换为真实绝对路径。
 8. 合并 `config.toml`：
@@ -35,8 +35,8 @@
     - `code-executor` 与 `research-lead` 不以 Worker Base 开头，并分别包含完整的代码阶段与研究阶段专属边界、路线和交回规则；
     - 所有配置引用路径存在；
     - 角色 TOML 不包含当前运行时不支持的伪权限或伪环境字段。
-11. 新建一个 Root 测试任务，确认 Root 加载完整 Root Base、共同执行层与当前项目规则。
-12. 使用命名角色和 `fork_turns: "none"` 新建至少一个阶段负责人及一个执行型 subagent 测试，确认它们加载中性 Base、相应角色提示词和共同执行层，而不依赖 Root developer 镜像或父对话历史。
+11. 把 `hooks/hooks.json` 和 `hooks/fork-turns-guard.ps1` 合并安装到 `CODEX_HOME` 对应位置；保留其他 Hook。Hook 文件改变后由宿主重新进行信任确认，不写入或伪造 `trusted_hash`。
+12. 可选择新建 Root、阶段负责人和执行型 subagent 测试任务，确认真实加载和 Hook 拦截。用户不希望为安装验证消耗额度时可以跳过，并把 fresh-task 行为标为未验证。
 13. 每次委派都显式使用 `fork_turns: "none"`。最近用户原话或既有判断会改变责任时，把必要内容写进合同或稳定项目文件；不使用有限轮数、`all`，也不省略参数。
 14. 浏览器角色和视觉测试角色还需要宿主实际提供对应能力。复制角色文件不会自动开启能力或扩大外部操作授权。
 
@@ -51,4 +51,4 @@
 
 ## 完成报告
 
-说明实际使用的 `CODEX_HOME`、备份位置、创建和替换的文件、保留的配置、最终模型映射、Root 镜像一致性、Worker 前缀与阶段专属提示词检查、TOML 解析、真实 Root/阶段角色/Worker 加载证据，以及仍未验证的部分。
+说明实际使用的 `CODEX_HOME`、备份位置、创建和替换的文件、保留的配置、最终模型映射、Root 镜像一致性、Worker 前缀与阶段专属提示词检查、TOML 解析、Hook 静态检查、实际执行过的真实加载验证，以及仍未验证的部分。

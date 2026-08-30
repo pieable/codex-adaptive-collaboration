@@ -11,7 +11,11 @@ developer_instructions = '''
 '''
 
 [agents]
+# Root 是第 0 层，阶段负责人是第 1 层，一线工人是第 2 层。
+# 更深的转述会增加信息损失并让 Root 远离一线证据。
 max_depth = 2
+# 十个槽位可组成 3-3-3-1 或 3-3-4，并为独立 Reviewer 或临时责任留位置。
+# 这是上限，不要求任务凑满并发。
 max_concurrent_threads_per_session = 10
 
 [agents.explorer]
