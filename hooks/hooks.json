@@ -9,8 +9,7 @@
             "type": "command",
             "command": "pwsh -NoProfile -NonInteractive -File \"{{CODEX_HOME}}\\hooks\\fork-turns-guard.ps1\"",
             "commandWindows": "& \"C:\\Program Files\\PowerShell\\7\\pwsh.exe\" -NoProfile -NonInteractive -File \"{{CODEX_HOME}}\\hooks\\fork-turns-guard.ps1\"",
-            "timeout": 5,
-            "statusMessage": "Checking subagent context boundary"
+            "timeout": 5
           }
         ]
       }
