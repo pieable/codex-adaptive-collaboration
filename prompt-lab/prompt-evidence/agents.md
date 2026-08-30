@@ -86,11 +86,22 @@
 - **对象：** `agents/code-executor.toml`
 - **状态：** `current-effective + unverified`
 - **行为：** 掌握模块目标、接口、核心判断、核心实现、整合和阶段验收；把已定型且可独立验收的工作用自包含合同和 `fork_turns:"none"` 交 Explorer 或 Worker Luna；阶段外决定上交 Root。
-- **理由：** Terra high 当前不能可靠承担全部用户历史和大型任务取舍，但能完成中型代码责任并组织更便宜角色。它保留核心代码是为了让设计和实现判断不被切碎；较高推理强度用于模块接口、实现取舍、整合和验收，不要求它像 Root 一样反复审查整个用户历史。
+- **理由：** Terra 当前不能可靠承担全部用户历史和大型任务取舍，但能完成中型代码责任并组织更便宜角色。它保留核心代码是为了让设计和实现判断不被切碎；较高推理强度用于模块接口、实现取舍、整合和验收，不要求它像 Root 一样反复审查整个用户历史。
 - **案例：** C-11；Root 过度接管阶段；Terra 阶段曾积累过多轮询和 followup。
 - **来源：** `agents/PROMPT_HISTORY.md` 2026-08-30；`subagent-architecture/rule-rationale.md` R29、R31；当前 TOML。
 - **验证：** 静态职责和模型配置已确认；嵌套委派—整合—评审—返工—一次交回闭环待真实任务验证。
 - **改变条件：** 模型能力和价格改变时可重新划分，但阶段必须仍由一个负责人维护接口、共享状态和完成判断。
+
+### A-07A Code Executor 条件性试用 Terra XHigh
+
+- **对象：** `agents/code-executor.toml`
+- **状态：** `conditional + unverified`
+- **行为：** 只把 Code Executor 的推理强度从 Terra High 提高到 Terra XHigh；其他角色和代码阶段提示词正文不变。连续观察三个真实复杂代码阶段后再决定是否长期保留。
+- **理由：** Code Executor 决定模块路线、核心实现和下属拆分，早期判断错误会让多个执行者沿错误方向工作。额外推理即使增加单次等待，也可能通过减少返工和 Root 介入降低端到端成本。当前用户观察到 High 与 XHigh 的能力差异，但更慢；现有历史没有同任务 A/B，因此先用真实任务验证，不直接写成永久最佳配置。
+- **案例：** 既有 Terra High 任务分别出现约 404 秒、21.855 秒和 31.770 秒的不同阶段耗时，证明任务差异很大，不能据此推导 XHigh 的固定延迟或收益。
+- **来源：** `agents/PROMPT_HISTORY.md` 2026-08-30；`subagent-architecture/rule-rationale.md` R13、R17；用户本轮决定。
+- **验证：** 静态配置改变后，只能证明目标设置为 XHigh。真实评估记录第一版路线、Reviewer 结论、返工次数、Root 介入和阶段总耗时。
+- **改变条件：** 三个代表性阶段显示质量收益不足以抵消延迟，或模型、计费和角色职责变化时，回退到 High 或重新设计对照。
 
 ### A-08 Code Executor 组织独立评审和视觉黑盒验证
 
@@ -188,7 +199,7 @@
 
 | 角色 | 模型/推理 | 当前显式关闭 | 保留原因 |
 |---|---|---|---|
-| Code Executor | Terra high | apps、plugins、memories、bundled skills | 保留模块级代码判断和阶段内组织；避免无关外部上下文，配置没有关闭普通 Skill 指令注入 |
+| Code Executor | Terra xhigh（条件性试运行） | apps、plugins、memories、bundled skills | 把额外推理集中在模块路线、核心实现和整合；三次真实复杂阶段后复审质量与总耗时 |
 | Research Lead | Terra high | apps、plugins、memories | 保留研究结构、冲突处理和综合，并继续读取适用研究 Skill |
 | Code Reviewer | Terra high | apps、plugins、memories、bundled skills | 需要可靠作出局部交付判断，不需要外部应用、记忆或无关 bundled Skill；配置没有关闭普通 Skill 指令注入 |
 | Explorer | Luna medium | apps、plugins、memories、全部 Skill 指令 | 合同已限定本地证据问题；保留证据选择判断，减少无关方法注入 |

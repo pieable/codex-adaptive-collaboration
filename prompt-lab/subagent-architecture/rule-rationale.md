@@ -160,7 +160,7 @@
 
 - 问题：全局 `default_subagent_model` 会在命名角色的配置文件加载前参与创建校验。它设为 Luna 时，即使 `spawn_agent` 没有传 `model`，当前宿主仍会先按 Luna 校验并拒绝创建；`default` 还可能继承主任务的模型、思考强度和无关上下文。
 - 规则：全局不设置默认 subagent 模型。自动委派只使用职责匹配的命名角色，每个专用角色从自己的 TOML 取得模型和思考强度。`default` 只保留为宿主兼容叶子入口，显式读取工人 Base、禁止派生，不作为自动路由的兜底。没有贴合角色时由当前负责人处理。
-- 配置细节：`explorer`、`web-researcher` 和 `browser-operator` 在自己的配置中选择 Luna Medium，`worker-luna` 选择 Luna Low，`research-lead` 选择 Terra High，`code-executor` 选择 Terra High，`worker` 选择 Spark High。调用命名角色时不传模型覆盖。创建失败时保持原责任，不通过改换角色来绕过。
+- 配置细节：`explorer`、`web-researcher` 和 `browser-operator` 在自己的配置中选择 Luna Medium，`worker-luna` 选择 Luna Low，`research-lead` 选择 Terra High，`code-executor` 从 2026-08-30 起条件性试用 Terra XHigh，`worker` 选择 Spark High。调用命名角色时不传模型覆盖。创建失败时保持原责任，不通过改换角色来绕过。Code Executor 的 XHigh 尚无同任务 A/B，只观察接下来三个真实复杂代码阶段的路线正确性、Reviewer 结论、返工、Root 介入和总耗时；它不是永久模型常量。
 - 实际证据：2026-08-04 的任务 `019fca6d-39d5-7673-842f-64669197019e` 共记录约 108.57M 输入 token，其中根 Sol 和三个 `default` Sol 子任务合计约 90.66M，占 83.5%；四个 Luna 子任务合计约 8.06M。浏览器子任务 `inspect_feishu_view_plugin_access` 创建时明确选择 `agent_type: "default"`，实际运行模型为 Sol xhigh；它持续 15 个回合，记录 363 个模型用量片段、102 次等待和约 49.80M 输入，单独超过根 Sol 的 37.82M。三个 default 子任务合计约 52.84M Sol 输入。
 - 历史验证：2026-08-04 的验收任务 `019fcba1-1f96-7503-ad05-5d492ee7615c` 曾确认显式配置的 `default` 可以运行成 Luna High；同日后续任务又确认全局 Luna 默认值会在命名角色创建前触发模型白名单拒绝。现行配置继续删除全局默认模型；后来恢复的 `default` 只作为兼容叶子入口，不改变专用命名角色路由。
 - 修复验证：删除全局默认值和 `default` 入口后，主任务以 `agent_type: "explorer"`、`fork_turns: "none"` 且不传 `model` 创建子任务 `019fcce7-010d-7960-a062-ff44dd1565e7`。它第一次启动成功，实际运行 `gpt-5.6-luna`、High，并完成配置核验；主任务只创建一次并使用一次长等待，没有改派 Terra 或重复读取相同文件。

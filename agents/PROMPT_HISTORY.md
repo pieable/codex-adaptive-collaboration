@@ -63,3 +63,9 @@ FastCtx 的具体文件工具协议由运行时工具说明提供，不再复制
 具有下属调度权的两个阶段角色统一显式使用 `fork_turns: "none"`。目的、背景、行动、结果和边界是固定委派接口；最近对话中的必要决定进入合同或稳定项目文件。项目 `AGENTS.md` 同时可以作为项目专属规则和权威文件索引。有限最近轮次不再作为自动上下文来源，Full History 与省略参数继续禁用。
 
 本轮保持 `code-executor` 和 `research-lead` 内联的官方 Skill 章节不变。对同批 `research-lead`、`code-reviewer`、`code-development` 与 `code-review` 的逐段复审没有发现需要随风格偏好整体重写的行为问题；固定合同字段、评审三结论和独立改变动作的验证边界继续保留。
+
+## 2026-08-30 Code Executor 试用 Terra XHigh
+
+只把 `code-executor` 的 `model_reasoning_effort` 从 `high` 改为 `xhigh`，其他角色、阶段提示词正文和职责不变。Code Executor 掌握模块路线、核心实现、下属拆分、整合和阶段验收；这里判断错误会让后续多个低价执行者沿错误路线工作，因此额外推理可能通过减少返工、Root 重新介入和错误扩散抵消等待时间。
+
+当前没有 Terra High 与 Terra XHigh 的同任务对照。历史记录只能证明 Terra High 完成过代码阶段，不能证明 XHigh 的质量增益和延迟比例。因此这项配置是 `conditional + unverified` 的真实任务试运行，不是永久模型常量。接下来三个具有真实复杂度的代码阶段观察第一版核心路线、Reviewer 结论、返工次数、Root 介入和阶段总耗时，再决定保留、回退或设计更严格的同任务 A/B。Research Lead 和 Code Reviewer 继续使用 Terra High。
