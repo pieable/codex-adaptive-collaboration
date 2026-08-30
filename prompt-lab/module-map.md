@@ -17,6 +17,7 @@
 - `functional-block-baseline.md` 是当前功能块的保真基线和快速比较入口，只覆盖局部功能面；它不直接替换运行版，也不能单独证明完整行为。
 - `prompt-architecture/functional-block-map.md` 说明功能块的实际承载层；`prompt-architecture/runtime-loading-and-release.md` 记录加载、版本边界和发布步骤。
 - `subagent-architecture/` 记录当前多代理规则及其形成理由。
+- `prompt-evidence/` 逐份记录规则为什么存在、由什么案例支持、目前在哪里生效、验证到哪一层，以及在什么条件下才允许改变。这里的记录是核对材料，不参与运行。
 - 本公开发行仓库不包含个人会话、本机备份、账户配置或完整内部历史；这些材料即使存在于维护环境，也不进入日常运行上下文。
 
 ## 正文结构原则

@@ -1,6 +1,6 @@
 # 给安装 AI 的任务合同
 
-把本仓库合并安装到当前用户真实使用的 `CODEX_HOME`，使 Root Base、共同执行层、Worker Base、两个自包含阶段角色、十个命名角色和十个体系 Skill 在新任务中可用。
+把本仓库合并安装到当前用户真实使用的 `CODEX_HOME`，使 Root Base、共同执行层、Worker Base、两个自包含阶段角色、十个命名角色和十一个体系 Skill 在新任务中可用。
 
 ## 目标与边界
 
@@ -17,7 +17,7 @@
 2. 在 `CODEX_HOME` 下创建 `prompt-lab`、`agents`、`skills` 和独立备份目录。
 3. 复制 `prompt-lab/` 中的 Root Base 与公开维护材料。
 4. 复制 `agents/` 中的共享中性 Base、Worker Base、十份角色 TOML 和维护说明。
-5. 复制 `skills/` 下十个体系 Skill 的完整目录。
+5. 复制 `skills/` 下十一个体系 Skill 的完整目录。
 6. 把 `global/AGENTS.md` 的共同执行层合并到 `CODEX_HOME/AGENTS.md`。保留已有无关内容，已经存在的相同规则不重复写入。
 7. 把示例中出现的 `{{CODEX_HOME}}` 替换为真实绝对路径。
 8. 合并 `config.toml`：

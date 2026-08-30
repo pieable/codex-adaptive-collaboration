@@ -8,6 +8,7 @@
 - [`evolution-map.md`](evolution-map.md)：按行为和功能块组织的公开演变地图；
 - [`functional-block-baseline.md`](functional-block-baseline.md)：当前功能块的保真基线和快速比较入口，不是完整发布验收；
 - [`module-map.md`](module-map.md)：提示词分层、职责归属和维护边界总览；
+- [`prompt-evidence/`](prompt-evidence/)：逐份规则的理由、历史案例、版本关系和验证状态；
 - [`prompt-architecture/`](prompt-architecture/)：功能块承载层、运行时加载和发布说明；
 - [`subagent-architecture/`](subagent-architecture/)：当前多代理规则、形成理由和公共基准。
 

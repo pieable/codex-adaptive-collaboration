@@ -56,7 +56,7 @@
 
 Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运行时支持字段见 [`agents/README.md`](agents/README.md)。
 
-## 十个体系 Skill
+## 十一个体系 Skill
 
 - `batch-execution`：控制重复批量操作的扩散风险；
 - `code-development`：代码调查、实现、评审和必要验证；
@@ -64,6 +64,7 @@ Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运�
 - `deep-research`：多来源、反例和综合研究；
 - `eli5`：视觉优先地解释计划、路线、状态和取舍；
 - `product-development`：从客户现实形成产品定义并迭代验证；
+- `search-source-registry`：按主张选择权威搜索入口并保留覆盖缺口；
 - `workflow-route-mapper`：保存任务分叉、失败路线和下一步；
 - `workflow-state-distiller`：恢复多轮任务的可执行当前状态；
 - `write-instructions-zh`：创建和维护 Base、Agent、Skill 与长期规则；
@@ -82,7 +83,7 @@ Worker Base 的权威文件、内联镜像关系、阶段专属提示词和运�
 ├── prompt-lab/                 # Root Base 与公开维护材料
 ├── global/AGENTS.md            # 所有角色共同读取的执行规则
 ├── agents/                     # 共享中性 Base、Worker Base 与 10 个角色 TOML
-├── skills/                     # 10 个体系 Skill
+├── skills/                     # 11 个体系 Skill
 ├── examples/                   # 配置合并与项目 AGENTS 模板
 └── INSTALL.md
 ```

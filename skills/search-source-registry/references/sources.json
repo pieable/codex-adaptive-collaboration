@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "sec_us_semiconductor_filings",
+      "kind": "sec_submissions",
+      "name": "SEC EDGAR submissions",
+      "region": "US",
+      "category": "regulatory_filing",
+      "forms": ["8-K", "10-Q", "10-K", "6-K", "20-F"],
+      "tickers": [
+        "NVDA", "AMD", "INTC", "AVGO", "QCOM", "MU", "TXN", "ADI",
+        "MRVL", "MPWR", "COHU", "AXTI", "ACLS", "AMAT", "LRCX", "KLAC",
+        "TER", "TSM", "ASX", "UMC", "AMZN", "MSFT", "GOOGL", "META"
+      ]
+    },
+    {
+      "id": "tsmc_press_center",
+      "kind": "html_links",
+      "name": "TSMC Press Center",
+      "company": "TSMC",
+      "region": "TW",
+      "category": "company_release",
+      "url": "https://pr.tsmc.com/english/latest-news",
+      "timezone": "Asia/Taipei",
+      "allow": "latest-news|news|press|english"
+    },
+    {
+      "id": "mediatek_press_room",
+      "kind": "html_links",
+      "name": "MediaTek Press Room",
+      "company": "MediaTek",
+      "region": "TW",
+      "category": "company_release",
+      "url": "https://www.mediatek.com/press-room/page/1",
+      "timezone": "Asia/Taipei",
+      "allow": "press-room|press-release|news"
+    },
+    {
+      "id": "tdk_ir_news",
+      "kind": "html_links",
+      "name": "TDK IR News",
+      "company": "TDK",
+      "region": "JP",
+      "category": "investor_relations",
+      "url": "https://www.tdk.com/en/ir/index.html",
+      "timezone": "Asia/Tokyo",
+      "allow": "ir|financial|news_center|system/files"
+    },
+    {
+      "id": "cohu_press_releases",
+      "kind": "html_links",
+      "name": "Cohu Press Releases",
+      "company": "Cohu",
+      "region": "US",
+      "category": "company_release",
+      "url": "https://ir.cohu.com/news-events/press-releases",
+      "timezone": "America/Los_Angeles",
+      "allow": "news-release|press-release|news-events"
+    },
+    {
+      "id": "mps_press_releases",
+      "kind": "html_links",
+      "name": "Monolithic Power Systems News",
+      "company": "Monolithic Power Systems",
+      "region": "US",
+      "category": "company_release",
+      "url": "https://www.monolithicpower.com/en/about-mps/newsroom.html",
+      "timezone": "America/Los_Angeles",
+      "allow": "news|press|investor"
+    },
+    {
+      "id": "axcelis_investor_news",
+      "kind": "html_links",
+      "name": "Axcelis Investor News",
+      "company": "Axcelis",
+      "region": "US",
+      "category": "company_release",
+      "url": "https://ir.axcelis.com/news-releases",
+      "timezone": "America/New_York",
+      "allow": "news-release|news-releases|press"
+    },
+    {
+      "id": "taiwan_mops",
+      "kind": "manual",
+      "name": "Taiwan MOPS material information",
+      "region": "TW",
+      "category": "exchange_disclosure",
+      "url": "https://mops.twse.com.tw/",
+      "reason": "需要查询接口或浏览器表单适配器"
+    },
+    {
+      "id": "japan_tdnet",
+      "kind": "manual",
+      "name": "JPX TDnet timely disclosures",
+      "region": "JP",
+      "category": "exchange_disclosure",
+      "url": "https://www.release.tdnet.info/inbs/I_main_00.html",
+      "reason": "需要日期分页和公司筛选适配器"
+    },
+    {
+      "id": "korea_dart",
+      "kind": "manual",
+      "name": "Korea DART disclosures",
+      "region": "KR",
+      "category": "regulatory_filing",
+      "url": "https://englishdart.fss.or.kr/",
+      "reason": "需要官方 API 密钥或浏览器适配器"
+    },
+    {
+      "id": "china_exchange_disclosures",
+      "kind": "manual",
+      "name": "SSE and SZSE disclosures",
+      "region": "CN",
+      "category": "exchange_disclosure",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/",
+      "reason": "需要上交所和深交所各自的查询适配器"
+    },
+    {
+      "id": "policy_and_export_controls",
+      "kind": "manual",
+      "name": "Semiconductor policy and export-control authorities",
+      "region": "GLOBAL",
+      "category": "government_policy",
+      "url": "https://www.bis.gov/press-release",
+      "reason": "需要按国家和机构维护多个官方入口"
+    }
+  ]
+}
