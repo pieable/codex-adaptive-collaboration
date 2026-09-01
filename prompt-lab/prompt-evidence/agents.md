@@ -136,6 +136,17 @@
 - **验证：** 当前两个 TOML 都含完整块；需用权威官方文本正式 diff，并在 fresh task 验证行为。
 - **改变条件：** 只随官方协议更新，不参加普通 Agent 精简。
 
+### A-10A 阶段负责人从当前规格形成模块计划和下属合同
+
+- **对象：** `agents/code-executor.toml`、`agents/research-lead.toml`
+- **状态：** `current-effective + unverified`
+- **行为：** 上级引用当前任务规格或权威需求时，阶段负责人只取与本阶段有关的部分，形成模块结果、接口、验收和可独立交接的责任。简单阶段不新增计划文件；上游变化后只修正受影响的阶段工作和下属合同，冲突超出合同就交回 Root。
+- **理由：** Root 的整体理解不应复制给工人，但只给五项合同又可能让跨阶段需求变化失去稳定来源。阶段负责人是把整体规格转换为模块执行的正确层级，能够保持 Root、阶段和工人上下文各自聚焦。
+- **案例：** C-30。
+- **来源：** 当前两个阶段角色“阶段责任和边界”；Agents `d52a151`；`agents/PROMPT_HISTORY.md` 2026-09-01；`subagent-architecture/rule-rationale.md` R39。
+- **验证：** TOML 静态存在；真实规格变化能否正确停止旧任务并保持未受影响工作尚未验证。
+- **改变条件：** 简单阶段可以在当前上下文完成计划；不能把模块计划扩大成共同 Stage Base，也不能让阶段负责人改写整体规格或直接向用户校准。
+
 ## 独立检查和操作角色
 
 ### A-11 Code Reviewer 对准确候选作三种结论
@@ -148,6 +159,17 @@
 - **来源：** `agents/PROMPT_HISTORY.md` 2026-08-29；DeepSeek Harness `dsh-code-review` 的公开思路；Git `86b6468`。
 - **验证：** 静态合同完整；真实通过、打回和证据不足三条路径待验证。
 - **改变条件：** Reviewer 可判断当前代码是否适合合入或交付，不获得修改代码、决定用户目标或宣布整个任务完成的权限。
+
+### A-11A Reviewer 对照当前规格检查候选偏差
+
+- **对象：** `agents/code-reviewer.toml`
+- **状态：** `current-effective + unverified`
+- **行为：** 评审输入包含与候选有关的当前任务规格或权威需求。Reviewer 检查漏掉要求、只完成一部分、行为与要求相反，以及增加了未经确认且会改变结果、风险或维护负担的内容；只报告影响本次候选的真实差异。
+- **理由：** 只看 diff、测试和实现者总结，Reviewer 无法判断“代码本身没坏但做错了需求”或“额外做了不该有的功能”。给它相关规格而不是完整用户历史，既补足合入判断所需上下文，也不扩大成整体任务裁决。
+- **案例：** C-15、C-30。
+- **来源：** 当前 Reviewer“开始评审前”“评审路线”；Agents `d52a151`；GitHub Spec Kit `converge` 的 missing、partial、contradicts、unrequested 检查；`subagent-architecture/rule-rationale.md` R39。
+- **验证：** 静态输入和检查项已增加；真实候选中的四类偏差识别待验证。
+- **改变条件：** 低风险、结果唯一的局部改动仍可轻量审查；不能删除相关需求输入，也不能让 Reviewer 自行修改规格或实现。
 
 ### A-12 Web Researcher 负责一条网络取证路线
 
@@ -201,7 +223,7 @@
 |---|---|---|---|
 | Code Executor | Terra xhigh（条件性试运行） | apps、plugins、memories、bundled skills | 把额外推理集中在模块路线、核心实现和整合；三次真实复杂阶段后复审质量与总耗时 |
 | Research Lead | Terra high | apps、plugins、memories | 保留研究结构、冲突处理和综合，并继续读取适用研究 Skill |
-| Code Reviewer | Terra high | apps、plugins、memories、bundled skills | 需要可靠作出局部交付判断，不需要外部应用、记忆或无关 bundled Skill；配置没有关闭普通 Skill 指令注入 |
+| Code Reviewer | Terra xhigh | apps、plugins、memories、bundled skills | 需要可靠作出局部交付判断，不需要外部应用、记忆或无关 bundled Skill；配置没有关闭普通 Skill 指令注入 |
 | Explorer | Luna medium | apps、plugins、memories、全部 Skill 指令 | 合同已限定本地证据问题；保留证据选择判断，减少无关方法注入 |
 | Web Researcher | Luna medium | apps、plugins、memories、全部 Skill 指令 | 合同已限定取证路线；保留来源判断，研究方法由上级合同和角色正文给出 |
 | Worker Luna | Luna low | apps、plugins、memories、全部 Skill 指令 | 结果、做法和验收已经确定，优先连续、低价执行 |
@@ -222,9 +244,9 @@
 | `worker-luna.toml` | A-02、A-04、A-15 |
 | `worker.toml` | A-02、A-05、A-15 |
 | `default.toml` | A-02、A-06、A-15 |
-| `code-executor.toml` | A-07、A-08、A-10、A-15 |
-| `research-lead.toml` | A-09、A-10、A-15 |
-| `code-reviewer.toml` | A-02、A-11、A-15 |
+| `code-executor.toml` | A-07、A-08、A-10、A-10A、A-15 |
+| `research-lead.toml` | A-09、A-10、A-10A、A-15 |
+| `code-reviewer.toml` | A-02、A-11、A-11A、A-15 |
 | `web-researcher.toml` | A-02、A-12、A-15 |
 | `browser-operator.toml` | A-02、A-13、A-15 |
 | `visual-usability-tester.toml` | A-02、A-14、A-15 |

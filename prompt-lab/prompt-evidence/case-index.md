@@ -33,6 +33,7 @@
 | C-27 | `fork_turns` Hook 的旧 matcher 没有包含 Desktop 实际调用名 `multi_agent_v1__spawn_agent`，真实测试中 `all` 没有触发 Hook 并成功创建 subagent | Hook 必须根据真实宿主观察到的 canonical tool name 匹配；脚本和配置静态正确不能证明工具调用已经经过 Hook | matcher 已修正；真实拦截仍 `unverified` | rollout `01a04f09-695b-7b70-898b-14173036b94f`；`hooks/`；`runtime-configuration.md` RC-06 |
 | C-28 | 用户提出的具体方案可能不适合整体产品，但其不满、直觉和建议出现的原因常能指出真实问题或新方向 | 先恢复用户想改变的体验和底层需要，再结合全局约束设计方案；既不盲从表面方案，也不忽略用户信号 | `current-effective` | Root Base R-17；Mark Rosewater Lesson 19；NN/g User Need Statements 与 Bad Design Suggestions；2026-08-30 用户确认 |
 | C-29 | 旧 `company-research-brief` 经多轮实验积累了固定字数、固定标题、强制 report-writer、DeepSeek 润色和 Word 样式等已撤回路线，但真实用途始终是帮助风投同事补全公司信息、比较产品线并作投前初筛 | 重新制作成熟 Skill 时从真实使用决定和有效证据边界重建，不把全部历史文字或已否决实现自动并集回当前正文 | 新稿 `current-effective + unverified` | 旧本机 Skill 与命名备份；企业投研 rollout；`skills/company-research-brief/RULE_RATIONALE.md` |
+| C-30 | 当前体系已有 Root 整体理解和五项委派合同，但跨多个阶段或任务接续时，用户校准主要停留在 Root 当前上下文，模块计划、工人合同和 Reviewer 输入没有共同指向一版可更新的需求 | 中大型任务由 Root 维护当前任务规格；阶段负责人导出模块计划，工人只接收相关合同，Reviewer 对照当前规格检查偏差，规格变化只使受影响工作失效 | `current-effective + unverified` | 2026-09-01 用户校准；私人 Prompt Lab `6b08b1d`；Agents `d52a151`；GitHub Spec Kit Agentic SDD、spec template、evolving specs、analyze 与 converge；`subagent-architecture/rule-rationale.md` R39 |
 
 ## 仍缺少的真实案例
 
@@ -42,3 +43,4 @@
 - `visual-usability-tester` 的 Browser/Computer Use 真实黑盒路径。
 - `fork_turns:"none"` Hook 是否在新 Desktop 任务中真正拦截省略、`all` 和有限轮次。
 - ELI5 阶段报告在真实长任务中能否持续让用户快速恢复全局理解。
+- 当前任务规格在真实跨阶段任务中能否减少理解漂移、无效返工和 Root 重复解释。
