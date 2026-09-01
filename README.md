@@ -1,3 +1,7 @@
+<p align="right">
+  <strong>中文</strong> | <a href="README.en.md">English</a>
+</p>
+
 <div align="center">
   <img src="assets/four-star-dragon-ball.png" alt="四星龙珠" width="180">
 
