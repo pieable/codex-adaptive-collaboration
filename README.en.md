@@ -12,7 +12,7 @@
   </h1>
 </div>
 
-After going to great lengths to collect ~~$200 worth of credits~~ all seven Dragon Balls...
+After going to great lengths to collect ~~$200~~ all seven Dragon Balls...
 
 **User:** Come forth, Shenron! Grant my wish!
 
