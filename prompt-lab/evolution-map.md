@@ -95,6 +95,9 @@ Root 保存用户目标、整体框架、跨模块取舍和最终验收。阶段
 | 2026-08-29 本次校准 | Reviewer 从问题清单角色明确为对当前代码给出“可合入”“要求修改”或“证据不足”的独立评审者 | `current-effective` | `code-reviewer` / `code-executor` / code Skills | `static`；真实评审闭环待验证 |
 | 2026-08-29 本次校准 | 来源搜索和路线内核验交给 Luna，`research-lead` 集中处理结构、冲突和阶段综合，Root 不因材料重要而重新搜索 | `current-effective` | `deep-research` / `research-lead` / 基线 | `static`；真实研究任务待验证 |
 | 2026-08-29 本次校准 | 可见界面、视觉反馈或完整用户操作路径进入代码阶段验收时，由 `code-executor` 触发 `visual-usability-tester` 完成首次用户视角黑盒验证 | `current-effective` | `code-executor` | `static`；真实代码阶段待验证 |
+| 2026-09-01 本次校准 | 已对齐的代码合同写清权威机制、保留与删除边界和失败语义，代码阶段据此形成唯一实现 | `current-effective` | Root Base / `code-executor` / `code-development` | CodexCostMonitor 真实代码阶段已删除竞争加载与宽泛回退路径 |
+| 2026-09-01 本次校准 | Reviewer 改用 Terra xhigh，并在每次评审中单列兜底路径必要性审查 | `current-effective` | `code-reviewer` / `code-review` | fresh Terra xhigh reviewer 已单列兜底审查并给出三态结论 |
+| 2026-09-01 本次校准 | 代码阶段按未来维护是否依赖不可从代码和测试恢复的稳定信息决定项目资料，并由 Reviewer 检查 | `current-effective` | `code-executor` / `code-reviewer` / code Skills | 当前项目资料已通过 fresh reviewer 审查；跨任务交接继续观察 |
 
 ## 5. Root-only 加载与上下文继承
 
